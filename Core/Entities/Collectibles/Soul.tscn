@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://d13anydf1lknb"]
+
+[ext_resource type="Texture2D" uid="uid://dd6v6h2hl5wdc" path="res://daemonette.png" id="1_hb4mx"]
+[ext_resource type="Script" path="res://Core/Entities/Collectibles/SoulCollectible.gd" id="1_ppnke"]
+[ext_resource type="Script" path="res://Core/Components/Hitboxes/HitboxComponent.gd" id="2_xrt6o"]
+[ext_resource type="Script" path="res://Core/Components/Hitboxes/Behaviours/Triggers/LogTriggerHitboxBehaviour.gd" id="4_o1xrd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qp0b3"]
+radius = 13.0
+
+[node name="Soul" type="Node2D"]
+script = ExtResource("1_ppnke")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_hb4mx")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("2_xrt6o")
+
+[node name="LogTriggerHitboxBehaviour" type="Node2D" parent="HitboxComponent"]
+script = ExtResource("4_o1xrd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_qp0b3")
+
+[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_component_area_entered"]
+[connection signal="area_entered" from="HitboxComponent" to="HitboxComponent" method="_on_area_entered"]

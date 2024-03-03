@@ -1,0 +1,12 @@
+res://Core/Entities/Player.tscn
+res://Core/Items/Weapons/PifGun.tres
+res://Core/Entities/Bullets/Bullet.tscn
+res://TestScene.tscn
+res://Core/Entities/Collectibles/Soul.tscn
+res://Core/Components/PlayerControllComponent.tscn
+res://Core/Components/Hitboxes/Behaviours/Bullet/DamageHitboxBehaviour.tscn
+res://Core/Entities/SimpleEnemy.tscn
+res://Core/Entities/Destructible.tscn
+res://Core/Skill/ShootSingle.tscn
+res://Core/Components/InventoryComponent.tscn
+res://Core/Components/Hitboxes/SimpleHitboxComponent.tscn

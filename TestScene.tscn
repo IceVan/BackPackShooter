@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=3 uid="uid://duuwenhfjr3ic"]
+
+[ext_resource type="Texture2D" uid="uid://7d6d4w8rdi7" path="res://steppe-1-winter.jpg" id="1_htcnu"]
+[ext_resource type="PackedScene" uid="uid://rqrufasdcnra" path="res://Core/Entities/Player.tscn" id="2_wh0i5"]
+[ext_resource type="PackedScene" uid="uid://c8lq6vbjtokd4" path="res://Core/Entities/Destructible.tscn" id="3_alagv"]
+[ext_resource type="PackedScene" uid="uid://dhsr1doibmnya" path="res://Core/Entities/SimpleEnemy.tscn" id="4_prv4t"]
+[ext_resource type="PackedScene" uid="uid://d13anydf1lknb" path="res://Core/Entities/Collectibles/Soul.tscn" id="5_umq5w"]
+[ext_resource type="Texture2D" uid="uid://bqsw62sgr4smk" path="res://icon.svg" id="6_ddtn1"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i5fex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l046r"]
+size = Vector2(360.5, 28.5)
+
+[node name="TestScene" type="Node2D"]
+
+[node name="Steppe-1-winter" type="Sprite2D" parent="."]
+texture = ExtResource("1_htcnu")
+
+[node name="Player" parent="." instance=ExtResource("2_wh0i5")]
+
+[node name="Destructible" parent="." instance=ExtResource("3_alagv")]
+position = Vector2(651, 248)
+baseHealth = 40
+
+[node name="Destructible2" parent="." instance=ExtResource("3_alagv")]
+position = Vector2(659, 34)
+baseStats = {
+"DEF": {
+502: 2,
+506: 6
+}
+}
+baseHealth = 20
+
+[node name="Destructible3" parent="." instance=ExtResource("3_alagv")]
+position = Vector2(649, 458)
+
+[node name="SimpleEnemy" parent="." instance=ExtResource("4_prv4t")]
+position = Vector2(159, 699)
+
+[node name="SimpleEnemy2" parent="." instance=ExtResource("4_prv4t")]
+position = Vector2(-8, 805)
+
+[node name="SimpleEnemy3" parent="." instance=ExtResource("4_prv4t")]
+position = Vector2(-237, 606)
+
+[node name="Collectibles" type="Node2D" parent="."]
+
+[node name="Soul" parent="Collectibles" instance=ExtResource("5_umq5w")]
+position = Vector2(-481, -155)
+
+[node name="Soul2" parent="Collectibles" instance=ExtResource("5_umq5w")]
+position = Vector2(-557, -159)
+
+[node name="Soul3" parent="Collectibles" instance=ExtResource("5_umq5w")]
+position = Vector2(-542, -104)
+
+[node name="Soul4" parent="Collectibles" instance=ExtResource("5_umq5w")]
+position = Vector2(-512, -222)
+
+[node name="Soul5" parent="Collectibles" instance=ExtResource("5_umq5w")]
+position = Vector2(441, -231)
+
+[node name="Soul6" parent="Collectibles" instance=ExtResource("5_umq5w")]
+position = Vector2(388, -333)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-256, -360)
+scale = Vector2(2, 2)
+collision_mask = 60
+physics_material_override = SubResource("PhysicsMaterial_i5fex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(170.25, -0.25)
+shape = SubResource("RectangleShape2D_l046r")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(171, -0.500006)
+scale = Vector2(2.78906, 0.238281)
+texture = ExtResource("6_ddtn1")

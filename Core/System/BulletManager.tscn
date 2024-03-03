@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dedsqe8s5k4jk"]
+
+[ext_resource type="Script" path="res://Core/System/BulletManager.gd" id="1_26sd4"]
+
+[node name="BulletManager" type="Node"]
+script = ExtResource("1_26sd4")
+
+[node name="Bullets" type="Node" parent="."]

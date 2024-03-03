@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://djstfu1ebh8xx"]
+
+[ext_resource type="Script" path="res://Core/Skill/ShootSingle.gd" id="1_mwg3r"]
+[ext_resource type="Script" path="res://Core/Skill/SkillResource.gd" id="2_0lgbl"]
+[ext_resource type="PackedScene" uid="uid://ck0ptvnk326sn" path="res://Core/Entities/Bullets/Bullet.tscn" id="2_8l2ut"]
+
+[sub_resource type="Resource" id="Resource_168l0"]
+script = ExtResource("2_0lgbl")
+stats = {}
+cooldown = 1.0
+type = 0
+tags = Array[int]([])
+
+[node name="ShootSingle" type="Node2D" node_paths=PackedStringArray("autoTimer")]
+script = ExtResource("1_mwg3r")
+bullet = ExtResource("2_8l2ut")
+skillData = SubResource("Resource_168l0")
+autoTimer = NodePath("Timer")
+cooldown = 1
+autoUse = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://gv0a4dh61arx"]
+
+[ext_resource type="Script" path="res://Core/Items/ItemResource.gd" id="1_dqxrf"]
+[ext_resource type="Script" path="res://Core/Skill/SkillResource.gd" id="2_2d316"]
+
+[sub_resource type="Resource" id="Resource_fiaf2"]
+script = ExtResource("2_2d316")
+stats = {
+"DMG": {
+102: 1,
+104: 2
+}
+}
+cooldown = 0.02
+type = 0
+tags = Array[int]([])
+actionButtons = Array[int]([0, 1])
+
+[resource]
+script = ExtResource("1_dqxrf")
+stats = {
+401: 66,
+404: 222
+}
+skills = Array[ExtResource("2_2d316")]([SubResource("Resource_fiaf2")])
+synergies = Array[Resource("res://Core/Synergies/SynergyResource.gd")]([])
+tags = Array[int]([])

@@ -1,0 +1,76 @@
+class_name Enums
+
+enum Tags {\
+	BASIC,\
+	ATTACK,\
+	DEFENCE,\
+	
+	RANGED,\
+	MELEE,\
+	
+	#HEALING
+	HEALING = 100,\
+	
+	#DMG TYPE
+	PHYSICAL = 101,\
+	FIRE = 102,\
+	LIGHTNING = 103,\
+	COLD = 104,\
+	LIGHT = 105,\
+	DARK = 106,\
+	
+	#STATUS
+	POISON = 200,\
+	BLEED = 201,\
+	BURN = 202,\
+	FREEZE = 203,\
+	ELECTROCUTE = 204,\
+	STUN = 205,\
+	REGEN = 206,\
+	
+	WEAPON = 300,\
+	ARMOUR = 301,\
+	ACCESSORY = 302,\
+	
+	#STAT
+	MAX_HP = 400,\
+	SPEED = 401,\
+	COLLECTION_RANGE = 402,\
+	EXP_BONUS = 403,\
+	GOLD_BONUS = 404,\
+	LIGHT_RADIUS = 405,\
+	
+	#DEF
+	DEF_ALL = 500,\
+	DEF_PHYSICAL = 501,\
+	DEF_FIRE = 502,\
+	DEF_LIGHTNING = 503,\
+	DEF_COLD = 504,\
+	DEF_LIGHT = 505,\
+	DEF_DARK = 506,\
+	REFLECT_ALL = 550,\
+	REFLECT_PHYSICAL = 551,\
+	REFLECT_FIRE = 552,\
+	REFLECT_LIGHTNING = 553,\
+	REFLECT_COLD = 554,\
+	REFLECT_LIGHT = 555,\
+	REFLECT_DARK = 556,\
+}
+
+enum Skills {\
+	SHOOT_SINGLE,\
+	SHOOT_CONE,\
+	SHOOT_SERIE,\
+}
+
+enum ActionButton {\
+	ACTION_1,\
+	ACTION_2,\
+	DODGE,\
+	USE,\
+	RELOAD,\
+}
+
+enum Synergies {\
+	SIMPLE_ADD,\
+}

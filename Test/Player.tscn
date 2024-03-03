@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://48my120nkyuq"]
+
+[ext_resource type="Script" path="res://Test/PlayerT.gd" id="1_by0um"]
+[ext_resource type="Texture2D" uid="uid://bqsw62sgr4smk" path="res://icon.svg" id="2_fi48l"]
+[ext_resource type="PackedScene" uid="uid://bt8air86r1c0f" path="res://Test/RangedT.tscn" id="3_570eq"]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("nRangedWeapon")]
+script = ExtResource("1_by0um")
+nRangedWeapon = NodePath("RangedT")
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture = ExtResource("2_fi48l")
+
+[node name="RangedT" parent="." instance=ExtResource("3_570eq")]
+
+[node name="Camera2D" type="Camera2D" parent="."]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://jb40bfnj313m"]
+
+[ext_resource type="Script" path="res://Core/Components/Hitboxes/Behaviours/Bullet/LogHitboxBehaviour.gd" id="1_ueln0"]
+
+[node name="LogHitboxBehaviour" type="Node2D"]
+script = ExtResource("1_ueln0")

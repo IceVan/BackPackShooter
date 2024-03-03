@@ -1,0 +1,50 @@
+extends Area2D
+class_name BaseBullet
+
+@export var speed = 800.0
+@export var maxDistance = 4000.0
+@export var maxTimeToLive = 10.0
+@export var direction = Vector2(0, 0)
+@export var attackData : AttackResource
+
+var distanceLeft = maxDistance
+var timeToLive = maxTimeToLive
+
+func _process(delta):
+	#print_debug(self.global_position, " dist left: ", distanceLeft, " time left: ", timeToLive)
+	distanceLeft -= speed * delta
+	timeToLive -= delta
+	if(distanceLeft <= 0 or timeToLive <= 0):
+		destroy()
+		
+	move(delta)
+
+
+func destroy():
+	queue_free()
+
+func move(delta):
+	self.translate(direction * speed * delta)
+	
+func setCollisionMask(layers: Array, value: bool):
+	for layer in layers:
+		setCollisionMaskSingle(layer, value)
+
+func setCollisionMaskSingle(layerNumber: int, value: bool):
+	set_collision_mask_value(layerNumber, value)
+
+func setCollisionLayer(layers: Array, value: bool):
+	for layer in layers:
+		setCollisionLayerSingle(layer, value)
+
+func setCollisionLayerSingle(layerNumber: int, value: bool):
+	set_collision_layer_value(layerNumber, value)
+
+func onHit(area):
+	print(area.name)
+	if(area is HitboxComponent):
+		area.onHit(self, attackData)
+
+func _on_area_entered(area):
+	onHit(area)
+	queue_free()
