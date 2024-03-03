@@ -15,6 +15,7 @@ stats = {
 cooldown = 2.0
 type = 2
 tags = Array[int]([0, 1])
+actionButtons = Array[int]([])
 
 [node name="ShootPaf" type="Node2D" node_paths=PackedStringArray("autoTimer")]
 script = ExtResource("1_n1ejp")

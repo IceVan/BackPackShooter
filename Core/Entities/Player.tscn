@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://rqrufasdcnra"]
+[gd_scene load_steps=13 format=3 uid="uid://rqrufasdcnra"]
 
 [ext_resource type="Script" path="res://Core/Entities/Entity.gd" id="1_r1diu"]
 [ext_resource type="Resource" uid="uid://gv0a4dh61arx" path="res://Core/Items/Weapons/PifGun.tres" id="2_4fer7"]
@@ -13,6 +13,9 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h1w8v"]
 radius = 60.075
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ktkor"]
+radius = 60.1332
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("defenseComponent", "healthComponent", "controllComponent", "skillsComponent", "inventoryComponent", "collectibleMagnesComponent") groups=["Player"]]
 collision_layer = 127
@@ -52,5 +55,8 @@ collision_layer = 8
 collision_mask = 95
 paretnEntity = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SimpleHitboxComponent"]
+[node name="HurtBox" type="CollisionShape2D" parent="SimpleHitboxComponent"]
 shape = SubResource("CircleShape2D_h1w8v")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ktkor")
