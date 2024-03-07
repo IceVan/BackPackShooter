@@ -14,7 +14,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func processInput(delta):
+func processInput(_delta):
 	var direction_x = Input.get_axis("LEFT", "RIGHT")
 	var direction_y = Input.get_axis("UP", "DOWN")
 	nPlayer.velocity.x = 0

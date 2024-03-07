@@ -2,5 +2,5 @@ extends SkillBase
 
 @export var bullet : PackedScene
 
-func processSkill(source : Entity, targets : Array[Entity]) -> void:
+func processSkill(_source : Entity, _targets : Array[Entity]) -> void:
 	pass

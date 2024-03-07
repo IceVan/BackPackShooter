@@ -23,7 +23,7 @@ func update(delta : float):
 	else:
 		randomizeWander()
 		
-func physicsUpdate(delta : float):
+func physicsUpdate(_delta : float):
 	if entity:
 		entity.velocity = moveDirection * (entity.baseSpeed + entity.stats.get(Enums.Tags.SPEED,0))
 	

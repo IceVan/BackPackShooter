@@ -13,10 +13,10 @@ func enter():
 func exit():
 	pass
 	
-func update(delta):
+func update(_delta):
 	pass
 	
-func physicsUpdate(delta):
+func physicsUpdate(_delta):
 	var dir = followedEntity.global_position - entity.global_position
 	
 	entity.velocity = dir.normalized() * (entity.baseSpeed + entity.stats.get(Enums.Tags.SPEED,0) + bonusSpeed)

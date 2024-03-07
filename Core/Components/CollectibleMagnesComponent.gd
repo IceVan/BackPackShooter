@@ -1,7 +1,7 @@
 extends Node
 class_name CollectibleMagnesComponent
 
-@export var range : float = 200.0
+@export var range_ : float = 200.0
 @export var magnesStrength : float = 1.0
 @export var parentEntity : Entity
 
@@ -13,6 +13,6 @@ func onUpdate(delta):
 		if child is Collectible and parentEntity and child.canBeCollected(parentEntity):
 			var dir = parentEntity.global_position - child.global_position
 			
-			if dir.length() < range:
+			if dir.length() < range_:
 				child.global_position += dir * delta * log(magnesStrength/max(child.weight,0.01) +1)/log(10)
 	

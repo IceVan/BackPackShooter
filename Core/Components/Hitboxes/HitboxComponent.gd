@@ -14,5 +14,5 @@ func onTrigger(collisionObject: Node2D):
 			child.processBehaviour(paretnEntity, collisionObject)
 
 
-func _on_area_entered(area):
+func _on_area_entered(_area):
 	pass # Replace with function body.

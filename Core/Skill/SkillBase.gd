@@ -16,10 +16,10 @@ func prepareAttack(source : Entity) -> AttackResource:
 	attack.stats = GUtils.addToAttackStats(source.stats.duplicate(true), skillData.stats)
 	return attack
 
-func processSkill(source : Entity, targets : Array[Entity]) -> void:
+func processSkill(_source : Entity, _targets : Array[Entity]) -> void:
 	pass
 	
-func getTargets(source : Entity) -> Array[Entity]:
+func getTargets(_source : Entity) -> Array[Entity]:
 	return []
 	
 func _ready():
@@ -43,7 +43,7 @@ func _on_timer_timeout():
 	if(autoUse):
 		use(caster)
 		
-func start(source : Entity = caster):
+func start(_source : Entity = caster):
 	use(caster)
 	
 func stop():
