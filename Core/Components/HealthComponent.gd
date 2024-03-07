@@ -26,7 +26,8 @@ func damage(attack: AttackResource):
 		currentHealth = max(currentHealth - attack.stats["DMG"][dmg], 0)
 		healthChanged.emit(oldHealth, currentHealth)
 	print("Current HP ", currentHealth)
-	died.emit()
+	if(currentHealth <= 0 && get_parent().has_method("destroy")):
+		died.emit()
 			
 func isAlive() -> bool:
 	return currentHealth > 0
