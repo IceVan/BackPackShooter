@@ -4,7 +4,7 @@ class_name SoulCollectible
 func canBeCollected(collectedBy : Entity) -> bool: 
 	return collectedBy.isPlayer()
 
-func onCollect(colectedBy : Entity):
+func onCollect(_colectedBy : Entity):
 	print("Collected!")
 	queue_free()
 

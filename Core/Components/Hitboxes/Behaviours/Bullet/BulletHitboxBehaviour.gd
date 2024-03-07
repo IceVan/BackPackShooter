@@ -1,5 +1,5 @@
 extends HitboxBehaviour
 class_name BulletHitboxBehaviour
 
-func processBehaviour(parentEntity: Entity, bullet : BaseBullet, attack : AttackResource):
+func processBehaviour(_parentEntity: Entity, _bullet : BaseBullet, _attack : AttackResource):
 	pass

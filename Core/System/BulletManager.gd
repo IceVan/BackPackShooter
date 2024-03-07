@@ -1,9 +1,9 @@
 extends Node
 
-@export var bullets : Array[PackedScene] = []
+@export var bullets : Array[BaseBullet] = []
 
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 func instantiateBullet(bullet : PackedScene, \
