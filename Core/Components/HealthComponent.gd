@@ -8,6 +8,10 @@ const MIN_HP = 1
 @export var regenerationPerSec = 1
 
 @onready var parent = get_parent()
+
+signal healthChanged(old_health, new_health)
+signal died
+
 var currentHealth 
 
 func _ready():
@@ -17,22 +21,26 @@ func _ready():
 #		healthBar.setHealth(currentHealth,maxHealth)
 
 func damage(attack: AttackResource):
+	var oldHealth = currentHealth
 	for dmg in attack.stats["DMG"].keys():
 		currentHealth = max(currentHealth - attack.stats["DMG"][dmg], 0)
-		
+		healthChanged.emit(oldHealth, currentHealth)
 	print("Current HP ", currentHealth)
-	if(currentHealth <= 0 && get_parent().has_method("destroy")):
-		get_parent().destroy()
+	died.emit()
 			
 func isAlive() -> bool:
 	return currentHealth > 0
 
 func fullyRegenerate():
+	var oldHealth = currentHealth
 	currentHealth = maxHealth
+	healthChanged.emit(oldHealth, currentHealth)
 #	updateHealthBar(healthBar, currentHealth)
 	
 func regenerate():
+	var oldHealth = currentHealth
 	currentHealth = min(maxHealth, currentHealth + regenerationPerSec)
+	healthChanged.emit(oldHealth, currentHealth)
 #	updateHealthBar(healthBar, currentHealth)
 
 func _on_regeneration_timeout():
