@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://duuwenhfjr3ic"]
+[gd_scene load_steps=11 format=3 uid="uid://duuwenhfjr3ic"]
 
 [ext_resource type="Texture2D" uid="uid://7d6d4w8rdi7" path="res://steppe-1-winter.jpg" id="1_htcnu"]
 [ext_resource type="PackedScene" uid="uid://rqrufasdcnra" path="res://Core/Entities/Player.tscn" id="2_wh0i5"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d13anydf1lknb" path="res://Core/Entities/Collectibles/Soul.tscn" id="5_umq5w"]
 [ext_resource type="Texture2D" uid="uid://bqsw62sgr4smk" path="res://icon.svg" id="6_ddtn1"]
 [ext_resource type="Script" path="res://Core/Components/Hitboxes/HitboxComponent.gd" id="6_w1wtd"]
+[ext_resource type="PackedScene" uid="uid://6gpwjfefuq0p" path="res://Core/UI/Hud.tscn" id="8_60yai"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i5fex"]
 
@@ -87,3 +88,5 @@ shape = SubResource("RectangleShape2D_l046r")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(170.25, -0.25)
 shape = SubResource("RectangleShape2D_l046r")
+
+[node name="Hud" parent="." instance=ExtResource("8_60yai")]

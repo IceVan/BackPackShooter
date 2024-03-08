@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 VectorUtilsScript="*res://Utils/VectorUtilsScript.gd"
 BulletManager="*res://Core/System/BulletManager.tscn"
 UtilsScript="*res://Utils/UtilsScript.gd"
+ShowStatistics="*res://Core/System/ShowStatistics.gd"
 
 [editor_plugins]
 

@@ -21,11 +21,13 @@ func _ready():
 #		healthBar.setHealth(currentHealth,maxHealth)
 
 func damage(attack: AttackResource):
-	var oldHealth = currentHealth
+	var oldHealth : int
 	for dmg in attack.stats["DMG"].keys():
+		oldHealth = currentHealth
 		currentHealth = max(currentHealth - attack.stats["DMG"][dmg], 0)
 		healthChanged.emit(oldHealth, currentHealth)
-	print("Current HP ", currentHealth)
+		if !get_parent().isPlayer() and !attack.enemy:
+			ShowStatistics.addDamageDealt(dmg, oldHealth-currentHealth)
 	if(currentHealth <= 0 && get_parent().has_method("destroy")):
 		died.emit()
 			

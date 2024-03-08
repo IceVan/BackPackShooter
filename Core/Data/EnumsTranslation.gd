@@ -1,0 +1,59 @@
+class_name EnumsTranslation
+
+static var tagsTranslated = {
+	0 : "BASIC",
+	1 : "ATTACK",
+	2 : "DEFENCE",
+	
+	3 : "RANGED",
+	4 : "MELEE",
+	
+	#HEALING
+	100 : "HEALING",
+	
+	#DMG TYPE
+	101 : "PHYSICAL",
+	102 : "FIRE",
+	103 : "LIGHTNING",
+	104 : "COLD",
+	105 : "LIGHT",
+	106 : "DARK",
+	
+	#STATUS
+	200 : "POISON",
+	201 : "BLEED",
+	202 : "BURN",
+	203 : "FREEZE",
+	204 : "ELECTROCUTE",
+	205 : "STUN",
+	206 : "REGEN",
+	
+	300 : "WEAPON",
+	301 : "ARMOUR",
+	302 : "ACCESSORY",
+	
+	#STAT
+	400 : "MAX_HP",
+	401 : "SPEED",
+	402 : "COLLECTION_RANGE",
+	403 : "EXP_BONUS",
+	404 : "GOLD_BONUS",
+	405 : "LIGHT_RADIUS",
+	
+	#DEF
+	500 : "DEF_ALL",
+	501 : "DEF_PHYSICAL",
+	502 : "DEF_FIRE",
+	503 : "DEF_LIGHTNING",
+	504 : "DEF_COLD",
+	505 : "DEF_LIGHT",
+	506 : "DEF_DARK",
+	
+	550 : "REFLECT_ALL",
+	551 : "REFLECT_PHYSICAL",
+	552 : "REFLECT_FIRE",
+	553 : "REFLECT_LIGHTNING",
+	554 : "REFLECT_COLD",
+	555 : "REFLECT_LIGHT",
+	556 : "REFLECT_DARK",
+}

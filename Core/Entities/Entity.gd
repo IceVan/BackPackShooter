@@ -67,7 +67,8 @@ func getItems(includeMain :bool = false) -> Array[Item]:
 	return items
 
 func _on_health_component_died():
+	ShowStatistics.enemyKilled()
 	destroy()
 
-func _on_health_component_health_changed(old_health, new_health):
-	pass # Replace with function body.
+#func _on_health_component_health_changed(oldHealth, currentHealth):
+#	pass
