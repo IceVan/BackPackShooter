@@ -12,7 +12,7 @@ func addDamageDealt(attackType, damage):
 		damageDealtByType[attackType] = damage
 	allDamageDealt += damage
 
-func enemieKilled():
+func enemyKilled():
 	enemiesKilled += 1
 
 func getTotDamageStats():
