@@ -4,7 +4,7 @@ class_name EnemyIdle
 @export var entity : Entity
 var followedEntity : Entity
 
-@export var followRange : int = 100
+@export var followRange : int = 200
 
 var moveDirection : Vector2
 var wanderTime : float
