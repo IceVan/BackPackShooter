@@ -20,6 +20,7 @@ radius = 60.1332
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("defenseComponent", "healthComponent", "controllComponent", "skillsComponent", "inventoryComponent", "collectibleMagnesComponent") groups=["Player"]]
 collision_layer = 127
 collision_mask = 127
+motion_mode = 1
 script = ExtResource("1_r1diu")
 mainItem = ExtResource("2_4fer7")
 defenseComponent = NodePath("DefenseComponent")

@@ -5,7 +5,10 @@ class_name EnemyFollow
 var followedEntity : Entity
 
 @export var bonusSpeed : int = 0
-@export var followRange : int = 100
+@export var followRangePossibleError : float = 1.0
+@export var followRange : float = 400.0
+@export var minFollowDistance : float = 150.0
+
 
 func enter():
 	followedEntity = get_tree().get_first_node_in_group("Player")
@@ -18,8 +21,14 @@ func update(_delta):
 	
 func physicsUpdate(_delta):
 	var dir = followedEntity.global_position - entity.global_position
+	var dirLengthSqr = dir.length_squared()
 	
-	entity.velocity = dir.normalized() * (entity.baseSpeed + entity.stats.get(Enums.Tags.SPEED,0) + bonusSpeed)
-		
-	if dir.length() > followRange:
+	
+	if (dirLengthSqr < pow((minFollowDistance - followRangePossibleError), 2)):
+		entity.velocity = -dir.normalized() * (entity.baseSpeed + entity.stats.get(Enums.Tags.SPEED,0) + bonusSpeed)
+	elif (dirLengthSqr < pow((minFollowDistance + followRangePossibleError),2)):
+		entity.velocity = Vector2.ZERO
+	elif dirLengthSqr < pow(followRange, 2):
+		entity.velocity = dir.normalized() * (entity.baseSpeed + entity.stats.get(Enums.Tags.SPEED,0) + bonusSpeed)
+	else:
 		Transitioned.emit(self, "ENEMYIDLE")
