@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://ccrfss1qwcnuc"]
+
+[ext_resource type="Script" path="res://Core/Items/ItemResource.gd" id="1_qymcy"]
+
+[resource]
+script = ExtResource("1_qymcy")
+stats = {
+"ATTACK": {
+"DMG": 5,
+"ELEMENTS": ["FIRE", "AIR"]
+},
+"SKILLS": [{
+"SKILL_ACTION_BUTTON": "ACTION_1",
+"SKILL_NAME": "SHOOT_SINGLE"
+}]
+}
+bonusStats = {}
+tags = Array[int]([])

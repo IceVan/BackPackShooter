@@ -10,10 +10,8 @@ static func addToStats(base : Dictionary, stats : Dictionary) -> Dictionary :
 	return base
 	
 static func addToAttackStats(base : Dictionary, stats : Dictionary) -> Dictionary :
-	if stats.has("DMG"):
-		addToStats(getOrCreateInDictionaryCategory(base, "DMG")["DMG"], stats["DMG"])
-	if stats.has("STATUS"):
-		addToStats(getOrCreateInDictionaryCategory(base, "STATUS")["STATUS"], stats["STATUS"])
+	if stats && stats.has("ATTACK"):
+		addToStats(getOrCreateInDictionaryCategory(base, "ATTACK")["ATTACK"], stats["ATTACK"])
 	return base
 
 static func getOrCreateInDictionaryCategory(dic : Dictionary, key : Variant):
@@ -22,3 +20,6 @@ static func getOrCreateInDictionaryCategory(dic : Dictionary, key : Variant):
 	
 	dic[key] = {}
 	return dic
+
+static func getNmericProperty(dic : Dictionary, group : String, property : String, default : int = 0):
+	return dic.get(group,{}).get(property,default)

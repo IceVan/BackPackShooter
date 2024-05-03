@@ -23,17 +23,9 @@ texture = ExtResource("1_htcnu")
 
 [node name="Destructible" parent="." instance=ExtResource("3_alagv")]
 position = Vector2(651, 248)
-baseHealth = 40
 
 [node name="Destructible2" parent="." instance=ExtResource("3_alagv")]
 position = Vector2(659, 34)
-baseStats = {
-"DEF": {
-502: 2,
-506: 6
-}
-}
-baseHealth = 20
 
 [node name="Destructible3" parent="." instance=ExtResource("3_alagv")]
 position = Vector2(649, 458)

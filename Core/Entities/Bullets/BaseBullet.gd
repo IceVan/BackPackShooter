@@ -11,7 +11,6 @@ var distanceLeft = maxDistance
 var timeToLive = maxTimeToLive
 
 func _process(delta):
-	#print_debug(self.global_position, " dist left: ", distanceLeft, " time left: ", timeToLive)
 	distanceLeft -= speed * delta
 	timeToLive -= delta
 	if(distanceLeft <= 0 or timeToLive <= 0):
@@ -41,7 +40,6 @@ func setCollisionLayerSingle(layerNumber: int, value: bool):
 	set_collision_layer_value(layerNumber, value)
 
 func onHit(area):
-	print(area.name)
 	if(area is HitboxComponent):
 		area.onHit(self, attackData)
 

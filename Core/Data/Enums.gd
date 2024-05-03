@@ -57,6 +57,25 @@ enum Tags {\
 	REFLECT_DARK = 556,\
 }
 
+enum ElementalAffinity {\
+	FIRE,\
+	EARTH,\
+	WATER,\
+	AIR,\
+	
+	PHYSICAL,\
+	MAGIC,\
+	
+	ICE,\
+	HEAT,\
+	MUD,\
+	GLAS,\
+	
+	LIGHTNING,\
+	STEAM,\
+	
+}
+
 enum Skills {\
 	SHOOT_SINGLE,\
 	SHOOT_CONE,\

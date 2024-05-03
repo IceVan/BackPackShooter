@@ -12,6 +12,7 @@ stats = {
 },
 "STATUS": {}
 }
+skillStatsModifications = {}
 cooldown = 2.0
 type = 2
 tags = Array[int]([0, 1])

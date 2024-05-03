@@ -25,7 +25,7 @@ func update(delta : float):
 		
 func physicsUpdate(_delta : float):
 	if entity:
-		entity.velocity = moveDirection * (entity.baseSpeed + entity.stats.get(Enums.Tags.SPEED,0))
+		entity.velocity = moveDirection * (GUtils.getNmericProperty(entity.stats, "STATS", "SPEED"))
 	
 	if (followedEntity.global_position - entity.global_position).length() <= followRange:
 		Transitioned.emit(self, "ENEMYFOLLOW") 

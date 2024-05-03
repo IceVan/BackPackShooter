@@ -11,6 +11,7 @@ stats = {
 104: 2
 }
 }
+skillStatsModifications = {}
 cooldown = 0.1
 type = 0
 tags = Array[int]([])

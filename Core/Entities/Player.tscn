@@ -1,11 +1,11 @@
 [gd_scene load_steps=13 format=3 uid="uid://rqrufasdcnra"]
 
 [ext_resource type="Script" path="res://Core/Entities/Entity.gd" id="1_r1diu"]
-[ext_resource type="Resource" uid="uid://gv0a4dh61arx" path="res://Core/Items/Weapons/PifGun.tres" id="2_4fer7"]
 [ext_resource type="PackedScene" uid="uid://5wql4jsbit8e" path="res://Core/Components/SkillsComponent.tscn" id="2_5uytd"]
 [ext_resource type="PackedScene" uid="uid://cppyr6vfd7ml4" path="res://Core/Components/DefenseComponent.tscn" id="2_jpmb3"]
 [ext_resource type="PackedScene" uid="uid://dxiga3kqjoa14" path="res://Core/Components/HealthComponent.tscn" id="3_pbrah"]
 [ext_resource type="PackedScene" uid="uid://denyv2nvbauri" path="res://Core/Components/PlayerControllComponent.tscn" id="4_y6xqc"]
+[ext_resource type="Resource" uid="uid://ccrfss1qwcnuc" path="res://Core/Items/Weapons/PulseRifle.tres" id="7_6voxs"]
 [ext_resource type="Script" path="res://Core/Components/CollectibleMagnesComponent.gd" id="9_gwmld"]
 [ext_resource type="PackedScene" uid="uid://cxaprl66dakbk" path="res://Core/Components/InventoryComponent.tscn" id="10_n81qq"]
 [ext_resource type="Texture2D" uid="uid://dnrabtu7i01jt" path="res://noble4.png" id="10_s0smb"]
@@ -22,7 +22,12 @@ collision_layer = 127
 collision_mask = 127
 motion_mode = 1
 script = ExtResource("1_r1diu")
-mainItem = ExtResource("2_4fer7")
+baseStats = {
+"STATS": {
+"MAX_HP": 50,
+"SPEED": 500
+}
+}
 defenseComponent = NodePath("DefenseComponent")
 healthComponent = NodePath("HealthComponent")
 controllComponent = NodePath("PlayerControllComponent")
@@ -39,7 +44,7 @@ collectibleMagnesComponent = NodePath("CollectibleMagnesComponent")
 [node name="DefenseComponent" parent="." instance=ExtResource("2_jpmb3")]
 
 [node name="InventoryComponent" parent="." instance=ExtResource("10_n81qq")]
-items = Array[Resource("res://Core/Items/ItemResource.gd")]([ExtResource("2_4fer7")])
+items = Array[Resource("res://Core/Items/ItemResource.gd")]([ExtResource("7_6voxs")])
 
 [node name="CollectibleMagnesComponent" type="Node" parent="." node_paths=PackedStringArray("parentEntity")]
 script = ExtResource("9_gwmld")
