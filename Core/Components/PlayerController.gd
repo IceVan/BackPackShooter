@@ -10,21 +10,15 @@ var speed = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	speed = nPlayer.baseSpeed + nPlayer.stats.get(Enums.Tags.SPEED,0)
+	speed = GUtils.getNmericProperty(nPlayer.stats, "STATS", "SPEED", 100)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func processInput(_delta):
 	var direction_x = Input.get_axis("LEFT", "RIGHT")
 	var direction_y = Input.get_axis("UP", "DOWN")
-	nPlayer.velocity.x = 0
-	nPlayer.velocity.y = 0
 
-	# movement is handled like this
-	if direction_x:
-		nPlayer.velocity.x = direction_x * speed
-	if direction_y:
-		nPlayer.velocity.y = direction_y * speed
+	nPlayer.velocity = Vector2(direction_x, direction_y).normalized() * speed
 		
 	nCamera.set("offset", Vector2(0, 0))
 	nCamera.set("zoom", Vector2(0.5, 0.5))

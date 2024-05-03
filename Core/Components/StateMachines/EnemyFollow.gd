@@ -25,10 +25,10 @@ func physicsUpdate(_delta):
 	
 	
 	if (dirLengthSqr < pow((minFollowDistance - followRangePossibleError), 2)):
-		entity.velocity = -dir.normalized() * (entity.baseSpeed + entity.stats.get(Enums.Tags.SPEED,0) + bonusSpeed)
+		entity.velocity = -dir.normalized() * (GUtils.getNmericProperty(entity.stats, "STATS", "SPEED", 100) + bonusSpeed)
 	elif (dirLengthSqr < pow((minFollowDistance + followRangePossibleError),2)):
 		entity.velocity = Vector2.ZERO
 	elif dirLengthSqr < pow(followRange, 2):
-		entity.velocity = dir.normalized() * (entity.baseSpeed + entity.stats.get(Enums.Tags.SPEED,0) + bonusSpeed)
+		entity.velocity = dir.normalized() * (GUtils.getNmericProperty(entity.stats, "STATS", "SPEED", 100) + bonusSpeed)
 	else:
 		Transitioned.emit(self, "ENEMYIDLE")

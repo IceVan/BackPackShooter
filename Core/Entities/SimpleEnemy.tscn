@@ -22,10 +22,9 @@ script = ExtResource("1_m56sr")
 baseStats = {
 "STATS": {
 "MAX_HP": 10,
-"SPEED": 300
+"SPEED": 200
 }
 }
-baseSpeed = 100
 defenseComponent = NodePath("DefenseComponent")
 healthComponent = NodePath("HealthComponent")
 

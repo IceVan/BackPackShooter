@@ -6,8 +6,6 @@ var uuid
 @export var baseStats : Dictionary = {}
 var stats : Dictionary = {}
 
-@export var baseSpeed : int = 500
-
 var targetPosition : Vector2
 
 #@export var attackComponent :AttackComponent
@@ -24,6 +22,7 @@ func _ready():
 	stats = baseStats.duplicate(true)
 	if(inventoryComponent): GUtils.addToStats(stats, inventoryComponent.getStatsFromItems())
 	if(skillsComponent): skillsComponent.startAll(self)
+	if(controllComponent): controllComponent.speed = GUtils.getNmericProperty(stats, "STATS", "SPEED", 100)
 	
 
 func _physics_process(delta):
