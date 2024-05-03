@@ -19,6 +19,12 @@ radius = 61.0328
 [node name="SimpleEnemy" type="CharacterBody2D" node_paths=PackedStringArray("defenseComponent", "healthComponent")]
 motion_mode = 1
 script = ExtResource("1_m56sr")
+baseStats = {
+"STATS": {
+"MAX_HP": 10,
+"SPEED": 300
+}
+}
 baseSpeed = 100
 defenseComponent = NodePath("DefenseComponent")
 healthComponent = NodePath("HealthComponent")

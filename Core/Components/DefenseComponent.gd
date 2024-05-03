@@ -4,13 +4,16 @@ class_name DefenseComponent
 @onready var parent = get_parent()
 
 func modifyAttack(attack: AttackResource) -> AttackResource:
-	if !parent.stats.has("DEF"):
-		return attack
+	
+	#TODO implementacja obrony (1 + ElementsNotResisted/AttackElements)/2 (/3?)
+	
+	#if !parent.stats.has("DEF"):
+		#return attack
 		
-	if attack.stats.has("DMG") :
-		for key in attack.stats["DMG"].keys() :
-			attack.stats["DMG"][key] \
-			= maxi(attack.stats["DMG"][key] - getDefForKey(parent.stats["DEF"], key), 1)
+	#if attack.stats.has("DMG") :
+		#for key in attack.stats["DMG"].keys() :
+			#attack.stats["DMG"][key] \
+			#= maxi(attack.stats["DMG"][key] - getDefForKey(parent.stats["DEF"], key), 1)
 			
 	return attack
 

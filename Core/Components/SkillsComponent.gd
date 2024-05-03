@@ -22,18 +22,24 @@ func updateSkills(repopulate : bool = true):
 		removeSkills()
 	#for inventoryComponent -> items -> skills
 	
+	#TODO skille dodane jako przypisane do postaci ze statów zamiast do itema
+	
 	if(get_parent().inventoryComponent):
-		for item in get_parent().getItems(false):
-			for skill in item.skills:
-				var skillNode = SkillToSceneDictionary.fromEnum[skill.type].instantiate()
-				skillNode.skillData.stats = skill.stats
-				for actionButton in skill.actionButtons:
+		for item in get_parent().getItems():
+			for skill in item.stats.get("SKILLS", []):
+				if !skill:
+					continue
+					
+				var sceneResource = SkillToSceneDictionary.fromString.get(skill.get("SKILL_NAME",""), null)
+				if sceneResource:
+					var skillNode = sceneResource.instantiate()
+					#skillNode.skillData.stats = skill.stats              #TODO bonus do statów ze skilla
+					skillNode.associatedItem = item
+					var actionButton = skill.get("SKILL_ACTION_BUTTON","AUTO")
 					if !skills.has(actionButton):
 						skills[actionButton] = []
 					skills[actionButton].append(skillNode)
-				self.add_child(skillNode)
-	print_debug(get_parent().getItems())
-	print_debug(skills)
+					self.add_child(skillNode)
 
 
 func startAll(source : Entity = get_parent()):
@@ -51,8 +57,7 @@ func pauseAll(paused : bool = true):
 		for skill in skills[action]:
 			skill.pause(paused)
 		
-func useAllActionSkills(action : Enums.ActionButton):
-	print_debug(skills)
+func useAllActionSkills(action : String):
 	for skill in skills.get(action, []):
 		skill.use(parent)
 		

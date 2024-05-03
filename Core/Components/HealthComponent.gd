@@ -15,19 +15,26 @@ signal died
 var currentHealth 
 
 func _ready():
-	maxHealth = parent.baseHealth + parent.stats.get(Enums.Tags.MAX_HP,0) if get_parent() is Entity else maxHealth
+	maxHealth = GUtils.getNmericProperty(parent.baseStats, "STATS", "MAX_HP") \
+	+ GUtils.getNmericProperty(parent.stats, "STATS", "MAX_HP") if get_parent() is Entity else maxHealth
+	maxHealth = maxi(maxHealth, MIN_HP)
 	currentHealth = maxHealth
 #	if(healthBar):
 #		healthBar.setHealth(currentHealth,maxHealth)
 
 func damage(attack: AttackResource):
 	var oldHealth : int
-	for dmg in attack.stats["DMG"].keys():
-		oldHealth = currentHealth
-		currentHealth = max(currentHealth - attack.stats["DMG"][dmg], 0)
-		healthChanged.emit(oldHealth, currentHealth)
-		if !get_parent().isPlayer() and !attack.enemy:
-			ShowStatistics.addDamageDealt(dmg, oldHealth-currentHealth)
+	
+	oldHealth = currentHealth
+	currentHealth = max(currentHealth - GUtils.getNmericProperty(attack.stats, "ATTACK", "DMG"), 0)
+	healthChanged.emit(oldHealth, currentHealth)
+	
+	#TODO add 
+	#TODO add DMG_OVER_TIME
+	
+	#if !get_parent().isPlayer() and !attack.enemy:
+		#ShowStatistics.addDamageDealt(dmg, oldHealth-currentHealth)
+			
 	if(currentHealth <= 0 && get_parent().has_method("destroy")):
 		died.emit()
 			

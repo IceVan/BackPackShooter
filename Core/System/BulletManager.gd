@@ -19,5 +19,4 @@ func instantiateBullet(bullet : PackedScene, \
 	self.add_child(b)
 	bullets.append(b)
 	b.move_to_front()
-	#Sprint_debug(b.global_position, " - ", b.direction)
 	return b

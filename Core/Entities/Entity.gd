@@ -5,9 +5,7 @@ var uuid
 
 @export var baseStats : Dictionary = {}
 var stats : Dictionary = {}
-@export var mainItem : Item
 
-@export var baseHealth : int = 10
 @export var baseSpeed : int = 500
 
 var targetPosition : Vector2
@@ -58,12 +56,10 @@ func isAlive() -> bool:
 func isPlayer() -> bool:
 	return controllComponent is PlayerController
 
-func getItems(includeMain :bool = false) -> Array[Item]:
+func getItems() -> Array[Item]:
 	var items = [] as Array[Item]
 	if(inventoryComponent):
 		items.append_array(inventoryComponent.items)
-	if(includeMain && mainItem):
-		items.append(mainItem)
 	return items
 
 func _on_health_component_died():

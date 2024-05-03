@@ -1,0 +1,31 @@
+{
+	"ATTACK" : {                       ## staty zwązane z atakiem
+		"DMG" : 10,
+		"DMG_OVER_TIME" : 10,
+		"DMG_OVER_TIME_DURATION" : 10, ## DMG_OVER_TIME/DMG_OVER_TIME_DURATION co 1s
+		"DELAY" : 5,                   ## po jakim czasie działa (jak over time 0 tylko ze startem po x s)
+		"STATUS" : "SLOW",             ## nazwa nakłądanego statusu/skilla
+		"STATUS_TIME" : 10             ## czas działania statusu/skilla
+		"ELEMENTS" : []                ## typ obrażeń
+	},
+	"STATS" : {                        ## pozostałe statystyki
+		"MAX_HP" : 50,
+		"SPEED" : 500,
+		"RESIST_FIRE" : 1,             ## czy jest odporny dowolna wartość [0,1] tak, 0/brak klucza nie
+		"TAGS" : [@Enum.Tags]          ## tagi dodawane do postaci w bonusowych statach 
+										  (raczej nie wykorzystywane w innych przypadkach)
+										  jeśli będą na postaci, automatycznie zostaną dodane do skillów/itemów
+		"SKILLS" : [{}]                ## skille przypisane do przedmiotu
+	},
+	"SKILLS" : [
+		{
+			"SKILL_NAME" : "SKILL_NAME"
+			"SKILL_ACTION_BUTTON" : "ACTION_1"
+			"SKILL_VALUE" : 12
+		},
+		{
+			"SKILL_NAME" : "SKILL_NAME_2"
+			"SKILL_VALUE" : 1
+		}
+	]
+}

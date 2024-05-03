@@ -9,14 +9,22 @@ class_name SkillBase
 
 var isReady : bool = true  
 var caster : Entity = null
+var associatedItem : Item = null
 
-func prepareAttack(source : Entity) -> AttackResource:
+func prepareAttack(source : Entity, item : Item = null) -> AttackResource:
 	var attack = AttackResource.new()
 	attack.tags = skillData.tags
-	attack.stats = GUtils.addToAttackStats(source.stats.duplicate(true), skillData.stats)
+	attack.stats = GUtils.addToAttackStats(source.stats.duplicate(true), item.stats if item else {})
+	attack.stats = modifyAttack(attack.stats)
 	return attack
 
-func processSkill(_source : Entity, _targets : Array[Entity]) -> void:
+func modifyAttack(stats : Dictionary) -> Dictionary:
+	
+	#TODO 
+	
+	return stats
+
+func processSkill(_source : Entity, _targets : Array[Entity], _item : Item = null) -> void:
 	pass
 	
 func getTargets(_source : Entity) -> Array[Entity]:
@@ -30,11 +38,11 @@ func _ready():
 	autoTimer.wait_time = cooldown
 	autoTimer.one_shot = !autoUse
 	
-func use(source : Entity) -> void:
+func use(source : Entity, item : Item = null) -> void:
 	if(!caster):
 		caster = source
 	if(isReady):
-		processSkill(caster, getTargets(caster))
+		processSkill(caster, getTargets(caster), item)
 		isReady = false
 		autoTimer.start()
 

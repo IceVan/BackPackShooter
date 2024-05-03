@@ -32,16 +32,19 @@ func processInput(_delta):
 	self.look_at(get_global_mouse_position())
 
 	if(Input.get_action_raw_strength("ACTION_1")):
-		nPlayer.skillsComponent.useAllActionSkills(Enums.ActionButton.ACTION_1)
+		nPlayer.skillsComponent.useAllActionSkills("ACTION_1")
 		
 	if(Input.get_action_raw_strength("ACTION_2")):
-		nPlayer.skillsComponent.useAllActionSkills(Enums.ActionButton.ACTION_2)
+		nPlayer.skillsComponent.useAllActionSkills("ACTION_2")
+	
+	if(Input.get_action_raw_strength("ACTION_3")):
+		nPlayer.skillsComponent.useAllActionSkills("ACTION_3")
 	
 	if(Input.get_action_raw_strength("DODGE")):
-		nPlayer.skillsComponent.useAllActionSkills(Enums.ActionButton.DODGE)
+		nPlayer.skillsComponent.useAllActionSkills("DODGE")
 	
 	if(Input.get_action_raw_strength("USE")):
-		nPlayer.skillsComponent.useAllActionSkills(Enums.ActionButton.USE)
+		nPlayer.skillsComponent.useAllActionSkills("USE")
 	
 	if(Input.get_action_raw_strength("RELOAD")):
-		nPlayer.skillsComponent.useAllActionSkills(Enums.ActionButton.RELOAD)
+		nPlayer.skillsComponent.useAllActionSkills("RELOAD")
