@@ -4,7 +4,7 @@ class_name SkillBase
 @export var skillData : SkillResource
 
 @export var autoTimer : Timer
-@export var cooldown : float = -1
+var cooldown : float = -1
 @export var autoUse : bool = false
 
 var isReady : bool = true  

@@ -24,7 +24,7 @@ func _physics_process(delta):
 	if currentState :
 		currentState.physicsUpdate(delta)
 	
-func onStateTransition(state, newStateName):
+func onStateTransition(state, newStateName, val = null):
 	if state != currentState:
 		return
 		
@@ -33,7 +33,7 @@ func onStateTransition(state, newStateName):
 		return
 		
 	if currentState:
-		currentState.exit()
+		currentState.exit(val)
 	
-	newState.enter()
+	newState.enter(val)
 	currentState = newState

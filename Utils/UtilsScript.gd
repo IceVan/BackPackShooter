@@ -1,3 +1,4 @@
+extends Node
 class_name GUtils
 
 static func addToStats(base : Dictionary, stats : Dictionary) -> Dictionary :
@@ -22,4 +23,7 @@ static func getOrCreateInDictionaryCategory(dic : Dictionary, key : Variant):
 	return dic
 
 static func getNmericProperty(dic : Dictionary, group : String, property : String, default : int = 0):
+	return dic.get(group,{}).get(property,default)
+	
+static func getStringProperty(dic : Dictionary, group : String, property : String, default : String = ""):
 	return dic.get(group,{}).get(property,default)

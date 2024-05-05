@@ -3,10 +3,10 @@ class_name State
 
 signal Transitioned
 
-func enter():
+func enter(val = null):
 	pass
 	
-func exit():
+func exit(val = null):
 	pass
 	
 func update(_delta):

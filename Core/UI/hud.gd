@@ -13,6 +13,8 @@ func _process(delta):
 func updateDamageStatistics():
 	$TotalDamageDealt.text = "Total dmg dealt: " + str(ShowStatistics.getTotDamageStats())
 	$EnemiesKilled.text = "EnemiesKilled: " + str(ShowStatistics.getEnemiesKilled())
+	$PlayerHealth.text = ShowStatistics.getHealth()
+	$LastTargetHealth.text = ShowStatistics.getLastTargetHealth()
 	var demageByType = """Damage by type:
 		"""
 	var damageTypes = ShowStatistics.getDamageByTypeStats()

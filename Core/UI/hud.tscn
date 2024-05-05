@@ -31,3 +31,23 @@ theme_override_fonts/font = ExtResource("1_431wq")
 theme_override_font_sizes/font_size = 20
 text = "damage statistics"
 metadata/_edit_use_anchors_ = true
+
+[node name="PlayerHealth" type="Label" parent="."]
+offset_left = 1.0
+offset_top = 73.0
+offset_right = 170.0
+offset_bottom = 101.0
+theme_override_fonts/font = ExtResource("1_431wq")
+theme_override_font_sizes/font_size = 20
+text = "player health"
+metadata/_edit_use_anchors_ = true
+
+[node name="LastTargetHealth" type="Label" parent="."]
+offset_left = 2.0
+offset_top = 98.0
+offset_right = 171.0
+offset_bottom = 126.0
+theme_override_fonts/font = ExtResource("1_431wq")
+theme_override_font_sizes/font_size = 20
+text = "last target health"
+metadata/_edit_use_anchors_ = true

@@ -15,7 +15,8 @@ skillStatsModifications = {}
 cooldown = 0.1
 type = 0
 tags = Array[int]([])
-actionButtons = Array[int]([])
+minRange = 0
+maxRange = 0
 
 [node name="ShootSingle" type="Node2D" node_paths=PackedStringArray("autoTimer")]
 script = ExtResource("1_mwg3r")
