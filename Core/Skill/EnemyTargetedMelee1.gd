@@ -1,12 +1,12 @@
 extends SkillBase
 class_name EnemyTargetedMelee1
 
-func processSkill(_source : Entity, _targets : Array[Entity], _item : Item = null) -> void:
+func processSkill(_source : Entity, _targets : Array, _item : Item = null) -> void:
 	for target in _targets:
 		if target.healthComponent:
 			target.healthComponent.damage(prepareAttack(_source, associatedItem))
 	
-func getTargets(_source : Entity) -> Array[Entity]:
+func getTargets(_source : Entity) -> Array:
 	#TODO add limit
 	var entities = get_tree().get_nodes_in_group("Player")\
 	.filter(func(node): return (node.global_position - _source.global_position).length() < skillData.maxRange)

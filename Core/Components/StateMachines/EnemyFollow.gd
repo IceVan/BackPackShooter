@@ -16,21 +16,11 @@ var secondarySkill : SkillBase
 @export var minFollowDistance : float = 150.0
 
 func _ready():
-	#TODO oprzec na action buttonach
-	if weapon:
-		var skillStat = weapon.stats.get("SKILLS", []).pop_front()
-		var sceneResource = SkillToSceneDictionary.fromString.get(skillStat.get("SKILL_NAME", "") if skillStat else "")
-		if sceneResource:
-			skill = sceneResource.instantiate()
-			skill.associatedItem = weapon
-	if secondaryWeapon:
-		var sSkillStat = weapon.stats.get("SKILLS", []).pop_front()
-		var sSceneResource = SkillToSceneDictionary.fromString.get(sSkillStat.get("SKILL_NAME", "") if sSkillStat else "")
-		if sSceneResource:
-			secondarySkill = sSceneResource.instantiate()
-			secondarySkill.associatedItem = weapon
+	prepareSkills()
 
 func enter(val = null):
+	if(!skill):
+		prepareSkills()
 	followedEntity = get_tree().get_first_node_in_group("Player")
 	
 func exit(val = null):
@@ -62,3 +52,20 @@ func physicsUpdate(_delta):
 		entity.velocity = dir.normalized() * (GUtils.getNmericProperty(entity.stats, "STATS", "SPEED", 100) + bonusSpeed)
 	else:
 		Transitioned.emit(self, "ENEMYIDLE")
+
+func prepareSkills():
+	#TODO oprzec na action buttonach
+	if weapon:
+		var skillStat = weapon.stats.get("SKILLS", []).pop_front()
+		var sceneResource = SkillToSceneDictionary.fromString.get(skillStat.get("SKILL_NAME", "") if skillStat else "")
+		if sceneResource:
+			skill = sceneResource.instantiate()
+			skill.associatedItem = weapon
+			self.add_child(skill)
+	if secondaryWeapon:
+		var sSkillStat = weapon.stats.get("SKILLS", []).pop_front()
+		var sSceneResource = SkillToSceneDictionary.fromString.get(sSkillStat.get("SKILL_NAME", "") if sSkillStat else "")
+		if sSceneResource:
+			secondarySkill = sSceneResource.instantiate()
+			secondarySkill.associatedItem = weapon
+			self.add_child(secondarySkill)

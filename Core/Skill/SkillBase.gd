@@ -24,10 +24,10 @@ func modifyAttack(stats : Dictionary) -> Dictionary:
 	
 	return stats
 
-func processSkill(_source : Entity, _targets : Array[Entity], _item : Item = null) -> void:
+func processSkill(_source : Entity, _targets : Array, _item : Item = null) -> void:
 	pass
 	
-func getTargets(_source : Entity) -> Array[Entity]:
+func getTargets(_source : Entity) -> Array:
 	return []
 	
 func _ready():

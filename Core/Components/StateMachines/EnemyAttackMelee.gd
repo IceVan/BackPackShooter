@@ -4,7 +4,7 @@ class_name EnemyAttackMelee
 @export var entity : Entity
 
 func enter(val = null):
-	if(val.isready):
+	if(val.isReady):
 		val.use(entity, val.associatedItem)
 	
 	#TODO przeniesc do update i sprawdzic czy animacja sie skonczyła
@@ -16,5 +16,5 @@ func exit(val = null):
 func update(_delta):
 	pass
 	
-func physics_update(_delta):
+func physicsUpdate(_delta):
 	pass
