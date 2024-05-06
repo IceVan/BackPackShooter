@@ -12,7 +12,7 @@ static func addToStats(base : Dictionary, stats : Dictionary) -> Dictionary :
 	
 static func addToAttackStats(base : Dictionary, stats : Dictionary) -> Dictionary :
 	if stats && stats.has("ATTACK"):
-		addToStats(getOrCreateInDictionaryCategory(base, "ATTACK")["ATTACK"], stats["ATTACK"])
+		addToStats(getOrCreateInDictionaryCategory(base, "ATTACK").get("ATTACK", {}), stats.get("ATTACK", {}))
 	return base
 
 static func getOrCreateInDictionaryCategory(dic : Dictionary, key : Variant):

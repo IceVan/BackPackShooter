@@ -19,3 +19,5 @@ skillData = SubResource("Resource_ku871")
 autoTimer = NodePath("Timer")
 
 [node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

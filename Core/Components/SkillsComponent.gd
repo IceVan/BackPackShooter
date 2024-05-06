@@ -43,9 +43,8 @@ func updateSkills(repopulate : bool = true):
 
 
 func startAll(source : Entity = get_parent()):
-	for action in skills:
-		for skill in skills[action]:
-			skill.use(source)
+	for skill in skills.get("AUTO", []):
+		skill.use(source)
 
 func stopAll():
 	for action in skills:

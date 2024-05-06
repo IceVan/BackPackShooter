@@ -10,6 +10,7 @@ stats = {
 "ELEMENTS": ["FIRE", "AIR"]
 },
 "SKILLS": [{
+"SKILL_ACTION_BUTTON": "ACTION_1",
 "SKILL_NAME": "ENEMY_TARGETED_MELEE_1"
 }]
 }
