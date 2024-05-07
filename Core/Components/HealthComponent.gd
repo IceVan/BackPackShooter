@@ -34,7 +34,8 @@ func damage(attack: AttackResource):
 	
 	#if !get_parent().isPlayer() and !attack.enemy:
 		#ShowStatistics.addDamageDealt(dmg, oldHealth-currentHealth)
-			
+	ShowStatistics.updatePlayerHealth(self)
+	
 	if(currentHealth <= 0 && get_parent().has_method("destroy")):
 		died.emit()
 			
@@ -45,12 +46,14 @@ func fullyRegenerate():
 	var oldHealth = currentHealth
 	currentHealth = maxHealth
 	healthChanged.emit(oldHealth, currentHealth)
+	ShowStatistics.updatePlayerHealth(self)	
 #	updateHealthBar(healthBar, currentHealth)
 	
 func regenerate():
 	var oldHealth = currentHealth
 	currentHealth = min(maxHealth, currentHealth + regenerationPerSec)
 	healthChanged.emit(oldHealth, currentHealth)
+	ShowStatistics.updatePlayerHealth(self)
 #	updateHealthBar(healthBar, currentHealth)
 
 func _on_regeneration_timeout():

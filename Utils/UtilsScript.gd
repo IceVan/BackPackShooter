@@ -1,3 +1,4 @@
+extends Node
 class_name GUtils
 
 static func addToStats(base : Dictionary, stats : Dictionary) -> Dictionary :
@@ -11,7 +12,7 @@ static func addToStats(base : Dictionary, stats : Dictionary) -> Dictionary :
 	
 static func addToAttackStats(base : Dictionary, stats : Dictionary) -> Dictionary :
 	if stats && stats.has("ATTACK"):
-		addToStats(getOrCreateInDictionaryCategory(base, "ATTACK")["ATTACK"], stats["ATTACK"])
+		addToStats(getOrCreateInDictionaryCategory(base, "ATTACK").get("ATTACK", {}), stats.get("ATTACK", {}))
 	return base
 
 static func getOrCreateInDictionaryCategory(dic : Dictionary, key : Variant):
@@ -22,4 +23,7 @@ static func getOrCreateInDictionaryCategory(dic : Dictionary, key : Variant):
 	return dic
 
 static func getNmericProperty(dic : Dictionary, group : String, property : String, default : int = 0):
+	return dic.get(group,{}).get(property,default)
+	
+static func getStringProperty(dic : Dictionary, group : String, property : String, default : String = ""):
 	return dic.get(group,{}).get(property,default)

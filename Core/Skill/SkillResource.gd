@@ -6,4 +6,7 @@ class_name SkillResource
 @export var cooldown : float = 1.0
 @export var type : Enums.Skills
 @export var tags : Array[Enums.Tags] = []
-@export var actionButtons : Array[Enums.ActionButton] = []
+
+#AI STUFF
+@export var minRange : int = 0
+@export var maxRange : int = 0

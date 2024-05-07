@@ -13,7 +13,7 @@ func randomizeWander():
 	moveDirection = Vector2(randf_range(-1,1), randf_range(-1,1)).normalized()
 	wanderTime = randf_range(1,2)
 
-func enter():
+func enter(val = null):
 	followedEntity = get_tree().get_first_node_in_group("Player")
 	randomizeWander()
 	

@@ -4,7 +4,7 @@ class_name SkillBase
 @export var skillData : SkillResource
 
 @export var autoTimer : Timer
-@export var cooldown : float = -1
+var cooldown : float = -1
 @export var autoUse : bool = false
 
 var isReady : bool = true  
@@ -24,10 +24,10 @@ func modifyAttack(stats : Dictionary) -> Dictionary:
 	
 	return stats
 
-func processSkill(_source : Entity, _targets : Array[Entity], _item : Item = null) -> void:
+func processSkill(_source : Entity, _targets : Array, _item : Item = null) -> void:
 	pass
 	
-func getTargets(_source : Entity) -> Array[Entity]:
+func getTargets(_source : Entity) -> Array:
 	return []
 	
 func _ready():

@@ -1,3 +1,4 @@
+extends Node
 class_name VectorUtilsGlobal 
 
 static func getGlobalVectorToMouse(canvas : CanvasItem, node : Node = canvas) -> Vector2:
