@@ -5,7 +5,8 @@ const MIN_HP = 1
 #@export var healthBar: HealthBar
 
 @export var maxHealth = MIN_HP
-@export var regenerationPerSec = 1
+@export var passiveRegeneration = 0
+@export var maximumOverTimeStatuses = 10
 
 @onready var parent = get_parent()
 
@@ -49,16 +50,16 @@ func fullyRegenerate():
 	ShowStatistics.updatePlayerHealth(self)	
 #	updateHealthBar(healthBar, currentHealth)
 	
-func regenerate():
+
+func passiveRegenerate():
+	regenerate(passiveRegeneration)
+	
+func regenerate(hp : int):
 	var oldHealth = currentHealth
-	currentHealth = min(maxHealth, currentHealth + regenerationPerSec)
+	currentHealth = min(maxHealth, currentHealth + hp)
 	healthChanged.emit(oldHealth, currentHealth)
 	ShowStatistics.updatePlayerHealth(self)
 #	updateHealthBar(healthBar, currentHealth)
-
-func _on_regeneration_timeout():
-	print("regeneration timer")
-	regenerate()
 
 #func updateHealthBar(_healthBar : HealthBar, _currentHealth : int):
 #	if(_healthBar):
