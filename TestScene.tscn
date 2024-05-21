@@ -286,3 +286,12 @@ position = Vector2(-1579, 665)
 
 [node name="SimpleEnemy71" parent="." instance=ExtResource("4_prv4t")]
 position = Vector2(-1269, 680)
+
+[node name="Destructible4" parent="." instance=ExtResource("3_alagv")]
+position = Vector2(1095, -1144)
+baseStats = {
+"STATS": {
+"MAX_HP": 500,
+"REGENERATION": 0.7
+}
+}

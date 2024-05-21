@@ -54,6 +54,7 @@ func physicsUpdate(_delta):
 		Transitioned.emit(self, "ENEMYIDLE")
 
 func prepareSkills():
-	print_debug(entity.skillsComponent.skills)
+	#TODO sprawdzic czy nie za czesto sie wywoluje
+	#print_debug(entity.skillsComponent.skills)
 	action1 = entity.skillsComponent.skills.get("ACTION_1", [])
 	action2 = entity.skillsComponent.skills.get("ACTION_2", [])

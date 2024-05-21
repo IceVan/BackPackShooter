@@ -6,7 +6,8 @@
 script = ExtResource("1_qymcy")
 stats = {
 "ATTACK": {
-"DMG": 5,
+"DMG": 1,
+"DMG_OVER_TIME": 20,
 "ELEMENTS": ["FIRE", "AIR"]
 },
 "SKILLS": [{

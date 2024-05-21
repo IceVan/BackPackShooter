@@ -24,6 +24,9 @@ static func getOrCreateInDictionaryCategory(dic : Dictionary, key : Variant):
 
 static func getNmericProperty(dic : Dictionary, group : String, property : String, default : int = 0):
 	return dic.get(group,{}).get(property,default)
-	
+
+static func getFloatingProperty(dic : Dictionary, group : String, property : String, default : float = 0):
+	return dic.get(group,{}).get(property,default)
+
 static func getStringProperty(dic : Dictionary, group : String, property : String, default : String = ""):
 	return dic.get(group,{}).get(property,default)

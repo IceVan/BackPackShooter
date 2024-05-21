@@ -5,16 +5,22 @@ class_name HealthOverTimeTimer
 
 @onready var healthComponent : HealthComponent = get_parent()
 
-func addData(damage : int, seconds : int, tags : Array = []):
-	if(data.size() <= healthComponent.maximumOverTimeStatuses):
-		data.append({
-			"DMG" = damage,
-			"SEC" = seconds,
-			"PERSEC" = ceili(damage/seconds),
-			"TAGS" = tags
-		})
+func addData(damage : int, seconds : int = 10, tags : Array = []):
+	if(data.size() >= healthComponent.maximumOverTimeStatuses):
+		data.pop_front()
+	
+	data.append({
+		"DMG" = damage,
+		"SEC" = seconds,
+		"PERSEC" = ceili(damage/seconds),
+		"TAGS" = tags
+	})
 
 func _on_timeout():
+	#DEBUG INFO
+	#if(data.size() > 0):
+		#print_debug(healthComponent.parent.name, " #size: ", data.size(), " #data: ", data)
+	
 	#TODO tags
 	if(!healthComponent):
 		push_error("HealthOverTimeTimer should be child of HealthComponent. Parent: ", get_parent())
@@ -43,5 +49,5 @@ func _on_timeout():
 			data.remove_at(index)
 		
 		healthComponent.regenerate(hot)
-		healthComponent.damage(AttackResource.new({"ATTACK" : {"DMG" : dot}},[]))
+		healthComponent.damage(AttackResource.new({"ATTACK" : {"DMG" : dot}},[]), false)
 		healthComponent.passiveRegenerate()
