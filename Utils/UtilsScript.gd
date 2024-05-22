@@ -1,6 +1,14 @@
 extends Node
 class_name GUtils
 
+static func multiplyDmgStats(stats : Dictionary, factor : float) -> Dictionary :
+	if stats.has("DMG"):
+		stats["DMG"] = ceilf(stats["DMG"] * factor)
+	if stats.has("DMG_OVER_TIME"):
+		stats["DMG_OVER_TIME"] = ceilf(stats["DMG_OVER_TIME"] * factor)
+		
+	return stats
+
 static func addToStats(base : Dictionary, stats : Dictionary) -> Dictionary :
 	for stat in stats.keys():
 		if base.has(stat):

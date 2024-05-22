@@ -22,8 +22,6 @@ func updateSkills(repopulate : bool = true):
 		removeSkills()
 	#for inventoryComponent -> items -> skills
 	
-	#TODO skille dodane jako przypisane do postaci ze statów zamiast do itema
-	
 	if(get_parent().inventoryComponent):
 		for item in get_parent().getItems():
 			for skill in item.stats.get("SKILLS", []):
@@ -33,7 +31,16 @@ func updateSkills(repopulate : bool = true):
 				var sceneResource = SkillToSceneDictionary.fromString.get(skill.get("SKILL_NAME",""), null)
 				if sceneResource:
 					var skillNode = sceneResource.instantiate()
-					#skillNode.skillData.stats = skill.stats              #TODO bonus do statów ze skilla
+					
+					if(skill.has("SKILL_MULTIPLICATION_FACTOR")):
+						skillNode.multiplicationFactor = skill.get("SKILL_MULTIPLICATION_FACTOR", 1.0)
+					if(skill.has("SKILL_DOT_MULTIPLICATION_FACTOR")):
+						skillNode.dotMultiplicationFactor = skill.get("SKILL_DOT_MULTIPLICATION_FACTOR", 1.0)
+					if(skill.has("SKILL_FLAT_BONUS")):
+						skillNode.flatBonus = skill.get("SKILL_FLAT_BONUS", 0)
+					if(skill.has("SKILL_DOT_FLAT_BONUS")):
+						skillNode.dotFlatBonus = skill.get("SKILL_DOT_FLAT_BONUS", 0)
+					
 					skillNode.associatedItem = item
 					var actionButton = skill.get("SKILL_ACTION_BUTTON","AUTO")
 					if !skills.has(actionButton):
