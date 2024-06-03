@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxiga3kqjoa14"]
+[gd_scene load_steps=3 format=3 uid="uid://dxiga3kqjoa14"]
 
 [ext_resource type="Script" path="res://Core/Components/HealthComponent.gd" id="1_v6nym"]
+[ext_resource type="PackedScene" uid="uid://bc17cjufkynvt" path="res://Core/Components/HealthOverTimeTimer.tscn" id="2_cukw2"]
 
-[node name="HealthComponent" type="Node2D"]
+[node name="HealthComponent" type="Node2D" node_paths=PackedStringArray("overTimeTimer")]
 script = ExtResource("1_v6nym")
+overTimeTimer = NodePath("HealthOverTimeTimer")
+
+[node name="HealthOverTimeTimer" parent="." instance=ExtResource("2_cukw2")]

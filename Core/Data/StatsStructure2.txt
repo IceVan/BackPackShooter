@@ -11,6 +11,7 @@
 	"STATS" : {                        ## pozostałe statystyki
 		"MAX_HP" : 50,
 		"SPEED" : 500,
+		"REGENERATION" : 1,            ## regeneracja pkt hp /s
 		"RESIST_FIRE" : 1,             ## czy jest odporny dowolna wartość [0,1] tak, 0/brak klucza nie
 		"TAGS" : [@Enum.Tags]          ## tagi dodawane do postaci w bonusowych statach 
 										  (raczej nie wykorzystywane w innych przypadkach)
@@ -19,13 +20,19 @@
 	},
 	"SKILLS" : [
 		{
-			"SKILL_NAME" : "SKILL_NAME"
-			"SKILL_ACTION_BUTTON" : "ACTION_1"
-			"SKILL_VALUE" : 12
+			"SKILL_NAME" : "SKILL_NAME",
+			"SKILL_ACTION_BUTTON" : "ACTION_1",
+			"SKILL_MULTIPLICATION_FACTOR" : 12,
+			"SKILL_DOT_MULTIPLICATION_FACTOR" : 12,
+			"SKILL_FLAT_BONUS" : 12,
+			"SKILL_DOT_FLAT_BONUS" : 12,
+			"SKILL_CHAIN" : [
+				{#SKILL}, {#SKILL2}, {#SKILL3}
+			]
 		},
 		{
 			"SKILL_NAME" : "SKILL_NAME_2"
 			"SKILL_VALUE" : 1
 		}
-	]
+	],
 }

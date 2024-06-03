@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bc17cjufkynvt"]
+
+[ext_resource type="Script" path="res://Core/Components/HealthOverTimeTimer.gd" id="1_a8nu1"]
+
+[node name="HealthOverTimeTimer" type="Timer"]
+autostart = true
+script = ExtResource("1_a8nu1")
+data = null
+
+[connection signal="timeout" from="." to="." method="_on_timeout"]

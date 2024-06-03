@@ -33,15 +33,18 @@ func physicsUpdate(_delta):
 	for skill in action1:
 		if(skill && \
 		   skill.isReady && \
-		   dirLengthSqr < pow(skill.skillData.maxRange,2) && \
-		   dirLengthSqr > pow(skill.skillData.minRange,2)):
+		   dirLengthSqr < pow(skill.maxRange,2) && \
+		   dirLengthSqr > pow(skill.minRange,2)):
+			print_debug("1st: ", dirLengthSqr < pow(skill.maxRange,2), " 2nd: ", dirLengthSqr > pow(skill.minRange,2))
+			print_debug("LEN: ", dirLengthSqr, " MAX: ", pow(skill.maxRange,2), " MIN: ", pow(skill.minRange,2))
+			print_debug("DATA: ", skill)
 			Transitioned.emit(self, "ENEMYATTACKMELEE", skill)
 			
 	for secondarySkill in action2:
 		if(secondarySkill && \
-			 secondarySkill.isReady && \
-			 dirLengthSqr < pow(secondarySkill.skillData.maxRange,2) && \
-			 dirLengthSqr > pow(secondarySkill.skillData.minRange,2)):
+		   secondarySkill.isReady && \
+		   dirLengthSqr < pow(secondarySkill.maxRange,2) && \
+		   dirLengthSqr > pow(secondarySkill.minRange,2)):
 			Transitioned.emit(self, "ENEMYATTACKMELEE", secondarySkill)
 	
 	if (dirLengthSqr < pow((minFollowDistance - followRangePossibleError), 2)):
@@ -54,6 +57,7 @@ func physicsUpdate(_delta):
 		Transitioned.emit(self, "ENEMYIDLE")
 
 func prepareSkills():
-	print_debug(entity.skillsComponent.skills)
+	#TODO sprawdzic czy nie za czesto sie wywoluje
+	#print_debug(entity.skillsComponent.skills)
 	action1 = entity.skillsComponent.skills.get("ACTION_1", [])
 	action2 = entity.skillsComponent.skills.get("ACTION_2", [])

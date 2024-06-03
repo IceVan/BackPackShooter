@@ -1,6 +1,14 @@
 extends Node
 class_name GUtils
 
+static func multiplyDmgStats(stats : Dictionary, factor : float) -> Dictionary :
+	if stats.has("DMG"):
+		stats["DMG"] = ceilf(stats["DMG"] * factor)
+	if stats.has("DMG_OVER_TIME"):
+		stats["DMG_OVER_TIME"] = ceilf(stats["DMG_OVER_TIME"] * factor)
+		
+	return stats
+
 static func addToStats(base : Dictionary, stats : Dictionary) -> Dictionary :
 	for stat in stats.keys():
 		if base.has(stat):
@@ -24,6 +32,9 @@ static func getOrCreateInDictionaryCategory(dic : Dictionary, key : Variant):
 
 static func getNmericProperty(dic : Dictionary, group : String, property : String, default : int = 0):
 	return dic.get(group,{}).get(property,default)
-	
+
+static func getFloatingProperty(dic : Dictionary, group : String, property : String, default : float = 0):
+	return dic.get(group,{}).get(property,default)
+
 static func getStringProperty(dic : Dictionary, group : String, property : String, default : String = ""):
 	return dic.get(group,{}).get(property,default)
