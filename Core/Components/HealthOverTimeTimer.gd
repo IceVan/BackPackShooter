@@ -17,7 +17,6 @@ func addData(damage : int, seconds : int = 10, tags : Array = []):
 	})
 
 func _on_timeout():
-	#DEBUG INFO
 	#if(data.size() > 0):
 		#print_debug(healthComponent.parent.name, " #size: ", data.size(), " #data: ", data)
 	

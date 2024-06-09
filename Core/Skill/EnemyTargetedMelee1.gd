@@ -1,10 +1,10 @@
 extends SkillBase
 class_name EnemyTargetedMelee1
 
-func processSkill(_source : Entity, _targets : Array, _item : Item = null) -> void:
+func processSkill(_source : Entity, _targets : Array, _itemStats : Dictionary = {}) -> void:
 	for target in _targets:
 		if target.healthComponent:
-			target.healthComponent.damage(prepareAttack(_source, associatedItem))
+			target.healthComponent.damage(prepareAttack(_source))
 	
 func getTargets(_source : Entity) -> Array:
 	#TODO add limit

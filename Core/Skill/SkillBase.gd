@@ -4,6 +4,9 @@ class_name SkillBase
 @export var autoTimer : Timer
 @export var cooldown : float = 1.0
 @export var autoUse : bool = false
+@export var autoTarget : bool = true
+@export var blockManualTarget : bool = false
+
 
 #AI STUFF
 @export var minRange : int = 0
@@ -24,10 +27,11 @@ var isReady : bool = true
 var caster : Entity = null
 var associatedItem : Item = null
 
-func prepareAttack(source : Entity, item : Item = null) -> AttackResource:
+func prepareAttack(source : Entity, itemStats : Dictionary = {}) -> AttackResource:
 	var attack = AttackResource.new()
 	attack.tags = tags
-	attack.stats = GUtils.addToAttackStats({"ATTACK" = source.stats.get("ATTACK",{}).duplicate(true)}, item.stats if item else {})
+	attack.stats = \
+	GUtils.addToAttackStats({"ATTACK" = source.stats.get("ATTACK",{}).duplicate(true)}, itemStats if !itemStats.is_empty() else associatedItem.stats)
 	attack.stats = modifyAttack(attack.stats)
 	return attack
 
@@ -39,27 +43,57 @@ func modifyAttack(stats : Dictionary) -> Dictionary:
 	
 	return stats
 
-func processSkill(_source : Entity, _targets : Array, _item : Item = null) -> void:
+func processSkill(_source : Entity, _targets : Array[Entity], _itemStats : Dictionary = {}) -> void:
+	pass
+	
+func processDirectionSkill(_source : Entity, _targets : Array[Vector2], _itemStats : Dictionary = {}) -> void:
 	pass
 	
 func getTargets(_source : Entity) -> Array:
+	if(_source.isPlayer()):
+		if(autoTarget || blockManualTarget):
+			var closestEntity = null
+			var closestDist_sqr = pow(maxRange, 2)
+			for entity in get_tree().get_nodes_in_group("Enemy"):
+				var length_sqr = (_source.global_position - entity.global_position).length_squared()
+				if length_sqr < closestDist_sqr:
+					closestEntity = entity
+					closestDist_sqr = length_sqr
+					
+			if(closestEntity != null):
+				return [closestEntity]
+		else:
+			return [_source.controllComponent.getCursorPosition()]
+	else:
+		return get_tree().get_nodes_in_group("Player")
+		
 	return []
 	
 func _ready():
 #	assert(self.get_parent().component)
 #	caster = get_parent().component.get_parent()
-
 	autoTimer.wait_time = cooldown
 	autoTimer.one_shot = !autoUse
 	
-func use(source : Entity, item : Item = null) -> void:
+func use(source : Entity, targets : Array = []) -> void:
+	assert(associatedItem)
 	if(!caster):
 		caster = source
 	if(isReady):
-		processSkill(caster, getTargets(caster), item)
+		var trg = targets if targets.size() > 0 else getTargets(caster)
+		if(trg.size() > 0 && trg[0] is Entity):
+			processSkill(caster, trg)
+		elif(trg.size() > 0 && trg[0] is Vector2):
+			processDirectionSkill(caster, trg)
 		isReady = false
 		autoTimer.start()
 
+func staticUse(source : Entity, targets : Array, itemStats : Dictionary = {}) -> void:
+	if(targets.size() > 0 && targets[0] is Entity):
+		processSkill(caster, targets, itemStats)
+	elif(targets.size() > 0 && targets[0] is Vector2):
+		processDirectionSkill(caster, targets, itemStats)
+	
 func _on_timer_timeout():
 	isReady = true
 	if(autoUse):

@@ -46,6 +46,7 @@ func updateSkills(repopulate : bool = true):
 					if !skills.has(actionButton):
 						skills[actionButton] = []
 					skills[actionButton].append(skillNode)
+					skillNode.autoTarget = !get_parent().isPlayer() && !skillNode.blockManualTarget
 					self.add_child(skillNode)
 
 
@@ -63,9 +64,20 @@ func pauseAll(paused : bool = true):
 		for skill in skills[action]:
 			skill.pause(paused)
 		
+		
+func swithAutoTarget():
+	for key in skills.keys():
+			for skill in skills.get(key, []):
+				skill.autoTarget = !skill.autoTarget && !skill.blockManualTarget
+	
 func useAllActionSkills(action : String):
-	for skill in skills.get(action, []):
-		skill.use(parent)
+	if (action == "ALL"):
+		for key in skills.keys():
+			for skill in skills.get(key, []):
+				skill.use(parent)
+	else:
+		for skill in skills.get(action, []):
+			skill.use(parent)
 		
 func getOwnerPosition():
 	return get_parent().position
