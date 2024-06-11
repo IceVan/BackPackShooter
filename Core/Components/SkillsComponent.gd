@@ -27,21 +27,10 @@ func updateSkills(repopulate : bool = true):
 			for skill in item.stats.get("SKILLS", []):
 				if !skill:
 					continue
-					
-				var sceneResource = SkillToSceneDictionary.fromString.get(skill.get("SKILL_NAME",""), null)
-				if sceneResource:
-					var skillNode = sceneResource.instantiate()
-					
-					if(skill.has("SKILL_MULTIPLICATION_FACTOR")):
-						skillNode.multiplicationFactor = skill.get("SKILL_MULTIPLICATION_FACTOR", 1.0)
-					if(skill.has("SKILL_DOT_MULTIPLICATION_FACTOR")):
-						skillNode.dotMultiplicationFactor = skill.get("SKILL_DOT_MULTIPLICATION_FACTOR", 1.0)
-					if(skill.has("SKILL_FLAT_BONUS")):
-						skillNode.flatBonus = skill.get("SKILL_FLAT_BONUS", 0)
-					if(skill.has("SKILL_DOT_FLAT_BONUS")):
-						skillNode.dotFlatBonus = skill.get("SKILL_DOT_FLAT_BONUS", 0)
-					if(skill.has("SKILLS")):
-						skillNode.stats["SKILLS"] = skill.get("SKILLS", [])
+				
+				var skillNode = SkillManager.createSkill(skill.get("SKILL_NAME",""), skill)
+				
+				if skillNode:
 					
 					skillNode.associatedItem = item
 					var actionButton = skill.get("SKILL_ACTION_BUTTON","AUTO")

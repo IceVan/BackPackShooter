@@ -91,11 +91,11 @@ func use(source : Entity, targets : Array = []) -> void:
 		autoTimer.start()
 
 func staticUse(source : Entity, startLocation : Vector2, targets : Array, itemStats : Dictionary = {}) -> void:
-	var trg = targets if targets.size() > 0 else getTargets(caster, caster.global_position, true)
+	var trg = targets if targets.size() > 0 else getTargets(source, startLocation, true)
 	if(targets.size() > 0 && targets[0] is Entity):
-		processSkill(caster, startLocation, trg, itemStats)
+		processSkill(source, startLocation, trg, itemStats)
 	elif(targets.size() > 0 && targets[0] is Vector2):
-		processDirectionSkill(caster, startLocation, trg, itemStats)
+		processDirectionSkill(source, startLocation, trg, itemStats)
 	
 func _on_timer_timeout():
 	isReady = true
