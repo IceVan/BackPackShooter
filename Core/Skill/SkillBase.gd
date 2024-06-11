@@ -29,10 +29,12 @@ var associatedItem : Item = null
 
 func prepareAttack(source : Entity, itemStats : Dictionary = {}) -> AttackResource:
 	var attack = AttackResource.new()
+	attack.source = source
 	attack.tags = tags
 	attack.stats = \
 	GUtils.addToAttackStats({"ATTACK" = source.stats.get("ATTACK",{}).duplicate(true)}, itemStats if !itemStats.is_empty() else associatedItem.stats)
 	attack.stats = modifyAttack(attack.stats)
+	attack.stats = GUtils.addToStats(attack.stats, stats) #attack.stats.merge(stats)#nie dodaje się
 	return attack
 
 func modifyAttack(stats : Dictionary) -> Dictionary:
@@ -43,19 +45,19 @@ func modifyAttack(stats : Dictionary) -> Dictionary:
 	
 	return stats
 
-func processSkill(_source : Entity, _targets : Array[Entity], _itemStats : Dictionary = {}) -> void:
+func processSkill(_source : Entity, startLocation : Vector2, _targets : Array[Entity], _itemStats : Dictionary = {}) -> void:
 	pass
 	
-func processDirectionSkill(_source : Entity, _targets : Array[Vector2], _itemStats : Dictionary = {}) -> void:
+func processDirectionSkill(_source : Entity, startLocation : Vector2, _targets : Array[Vector2], _itemStats : Dictionary = {}) -> void:
 	pass
 	
-func getTargets(_source : Entity) -> Array:
+func getTargets(_source : Entity, startLocation : Vector2, forceAuto : bool = false) -> Array:
 	if(_source.isPlayer()):
-		if(autoTarget || blockManualTarget):
+		if(autoTarget || blockManualTarget || forceAuto):
 			var closestEntity = null
 			var closestDist_sqr = pow(maxRange, 2)
 			for entity in get_tree().get_nodes_in_group("Enemy"):
-				var length_sqr = (_source.global_position - entity.global_position).length_squared()
+				var length_sqr = (startLocation - entity.global_position).length_squared()
 				if length_sqr < closestDist_sqr:
 					closestEntity = entity
 					closestDist_sqr = length_sqr
@@ -80,19 +82,20 @@ func use(source : Entity, targets : Array = []) -> void:
 	if(!caster):
 		caster = source
 	if(isReady):
-		var trg = targets if targets.size() > 0 else getTargets(caster)
+		var trg = targets if targets.size() > 0 else getTargets(caster, caster.global_position)
 		if(trg.size() > 0 && trg[0] is Entity):
-			processSkill(caster, trg)
+			processSkill(caster, caster.global_position, trg)
 		elif(trg.size() > 0 && trg[0] is Vector2):
-			processDirectionSkill(caster, trg)
+			processDirectionSkill(caster, caster.global_position, trg)
 		isReady = false
 		autoTimer.start()
 
-func staticUse(source : Entity, targets : Array, itemStats : Dictionary = {}) -> void:
+func staticUse(source : Entity, startLocation : Vector2, targets : Array, itemStats : Dictionary = {}) -> void:
+	var trg = targets if targets.size() > 0 else getTargets(caster, caster.global_position, true)
 	if(targets.size() > 0 && targets[0] is Entity):
-		processSkill(caster, targets, itemStats)
+		processSkill(caster, startLocation, trg, itemStats)
 	elif(targets.size() > 0 && targets[0] is Vector2):
-		processDirectionSkill(caster, targets, itemStats)
+		processDirectionSkill(caster, startLocation, trg, itemStats)
 	
 func _on_timer_timeout():
 	isReady = true

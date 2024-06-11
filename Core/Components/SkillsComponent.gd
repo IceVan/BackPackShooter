@@ -40,6 +40,8 @@ func updateSkills(repopulate : bool = true):
 						skillNode.flatBonus = skill.get("SKILL_FLAT_BONUS", 0)
 					if(skill.has("SKILL_DOT_FLAT_BONUS")):
 						skillNode.dotFlatBonus = skill.get("SKILL_DOT_FLAT_BONUS", 0)
+					if(skill.has("SKILLS")):
+						skillNode.stats["SKILLS"] = skill.get("SKILLS", [])
 					
 					skillNode.associatedItem = item
 					var actionButton = skill.get("SKILL_ACTION_BUTTON","AUTO")

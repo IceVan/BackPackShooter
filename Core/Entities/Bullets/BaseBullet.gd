@@ -42,7 +42,31 @@ func setCollisionLayerSingle(layerNumber: int, value: bool):
 func onHit(area):
 	if(area is HitboxComponent):
 		area.onHit(self, attackData)
+		processNextSkillInChain(area)
 
 func _on_area_entered(area):
 	onHit(area)
 	queue_free()
+
+func processNextSkillInChain(area):
+	var skills = attackData.stats.get("SKILLS", [])
+	#TODO
+	#for skill in skills:
+		#var sceneResource = SkillToSceneDictionary.fromString.get(skill.get("SKILL_NAME",""), null)
+				#
+		#if sceneResource:
+			#var skillNode = sceneResource.instantiate()
+					#
+			#if(skill.has("SKILL_MULTIPLICATION_FACTOR")):
+				#skillNode.multiplicationFactor = skill.get("SKILL_MULTIPLICATION_FACTOR", 1.0)
+			#if(skill.has("SKILL_DOT_MULTIPLICATION_FACTOR")):
+				#skillNode.dotMultiplicationFactor = skill.get("SKILL_DOT_MULTIPLICATION_FACTOR", 1.0)
+			#if(skill.has("SKILL_FLAT_BONUS")):
+				#skillNode.flatBonus = skill.get("SKILL_FLAT_BONUS", 0)
+			#if(skill.has("SKILL_DOT_FLAT_BONUS")):
+				#skillNode.dotFlatBonus = skill.get("SKILL_DOT_FLAT_BONUS", 0)
+			#if(skill.has("SKILLS")):
+				#skillNode.stats["SKILLS"] = skill.get("SKILLS", [])
+			#
+			#sceneResource.staticUse(attackData.source, area.global_position, {"ATTACK" : attackData.stats.get("ATTACK",{})})
+			#

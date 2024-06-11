@@ -26,8 +26,10 @@
 			"SKILL_DOT_MULTIPLICATION_FACTOR" : 12,
 			"SKILL_FLAT_BONUS" : 12,
 			"SKILL_DOT_FLAT_BONUS" : 12,
-			"SKILL_CHAIN" : [
-				{#SKILL}, {#SKILL2}, {#SKILL3}
+			"SKILLS" : [
+				{#SKILL1}, 
+				{#SKILL2}, 
+				{#SKILL3}
 			]
 		},
 		{
