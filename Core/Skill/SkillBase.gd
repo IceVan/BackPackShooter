@@ -92,9 +92,9 @@ func use(source : Entity, targets : Array = []) -> void:
 
 func staticUse(source : Entity, startLocation : Vector2, targets : Array, itemStats : Dictionary = {}) -> void:
 	var trg = targets if targets.size() > 0 else getTargets(source, startLocation, true)
-	if(targets.size() > 0 && targets[0] is Entity):
+	if(trg.size() > 0 && trg[0] is Entity):
 		processSkill(source, startLocation, trg, itemStats)
-	elif(targets.size() > 0 && targets[0] is Vector2):
+	elif(trg.size() > 0 && trg[0] is Vector2):
 		processDirectionSkill(source, startLocation, trg, itemStats)
 	
 func _on_timer_timeout():

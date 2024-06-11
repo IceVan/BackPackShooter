@@ -14,6 +14,9 @@ func processSkill(source : Entity, startLocation : Vector2, _targets : Array, _i
 
 func createBullet(source : Entity, startLocation : Vector2, targetV2 : Vector2, itemStats : Dictionary = {}):
 	var b = BulletManager.instantiateBullet(bullet, prepareAttack(source, itemStats), startLocation, (targetV2 - startLocation).normalized())
+	var origin = itemStats.get("TRIGGERED_FROM", null)
+	if origin:
+		b.ignorableAreas.append(origin)
 	if(source.isPlayer()):
 		b.setCollisionLayer([6], true)
 		b.setCollisionMask([2,3], true)
