@@ -58,7 +58,7 @@ func getTargets(_source : Entity, startLocation : Vector2, forceAuto : bool = fa
 			var closestDist_sqr = pow(maxRange, 2)
 			for entity in get_tree().get_nodes_in_group("Enemy"):
 				var length_sqr = (startLocation - entity.global_position).length_squared()
-				if length_sqr < closestDist_sqr:
+				if length_sqr > 0 && length_sqr < closestDist_sqr:
 					closestEntity = entity
 					closestDist_sqr = length_sqr
 					
