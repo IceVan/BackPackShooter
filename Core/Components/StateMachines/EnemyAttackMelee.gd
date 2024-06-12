@@ -12,7 +12,7 @@ func exit(val = null):
 	
 func update(_delta):
 	if(skill.isReady):
-		skill.use(entity, skill.associatedItem)
+		skill.use(entity)
 	
 	#TODO przeniesc do update i sprawdzic czy animacja sie skonczyła
 	Transitioned.emit(self, "ENEMYIDLE")

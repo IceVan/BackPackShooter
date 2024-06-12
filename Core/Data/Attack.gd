@@ -2,6 +2,7 @@ extends Resource
 class_name AttackResource
 
 @export var enemy : bool = false
+var source : Entity
 @export var stats : Dictionary = {}
 @export var tags : Array[Enums.Tags] = []
 

@@ -6,6 +6,7 @@ class_name BaseBullet
 @export var maxTimeToLive = 10.0
 @export var direction = Vector2(0, 0)
 @export var attackData : AttackResource
+@export var ignorableAreas : Array = []
 
 var distanceLeft = maxDistance
 var timeToLive = maxTimeToLive
@@ -42,7 +43,19 @@ func setCollisionLayerSingle(layerNumber: int, value: bool):
 func onHit(area):
 	if(area is HitboxComponent):
 		area.onHit(self, attackData)
+		processNextSkillInChain(area)
 
 func _on_area_entered(area):
-	onHit(area)
-	queue_free()
+	if(area not in ignorableAreas):
+		onHit(area)
+		queue_free()
+
+func processNextSkillInChain(area):
+	var skills = attackData.stats.get("SKILLS", [])
+	for skill in skills:
+		SkillManager.staticUse(\
+			skill.get("SKILL_NAME",""),\
+			attackData.source,\
+			area.global_position,\
+			[],\
+			{"ATTACK" : attackData.stats.get("ATTACK",{}), "TRIGGERED_FROM" : area})

@@ -5,6 +5,5 @@
 [node name="HealthOverTimeTimer" type="Timer"]
 autostart = true
 script = ExtResource("1_a8nu1")
-data = null
 
 [connection signal="timeout" from="." to="." method="_on_timeout"]

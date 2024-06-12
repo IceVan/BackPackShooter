@@ -8,6 +8,8 @@ script = ExtResource("1_mwg3r")
 bullet = ExtResource("2_8l2ut")
 autoTimer = NodePath("Timer")
 cooldown = 0.1
+autoUse = true
+maxRange = 1000
 
 [node name="Timer" type="Timer" parent="."]
 

@@ -2,12 +2,25 @@ extends SkillBase
 
 @export var bullet : PackedScene
 
-func processSkill(source : Entity, _targets : Array, _item : Item = null) -> void:
-	#print_debug(get_tree().get_first_node_in_group("Player"))
-	var b = BulletManager.instantiateBullet(bullet, prepareAttack(source), global_position, (get_global_mouse_position() - global_position).normalized())
+func processDirectionSkill(source : Entity, startLocation : Vector2, _targets : Array, _itemStats : Dictionary = {}) -> void:
+	for target in _targets:
+		if target is Vector2:
+			createBullet(source, startLocation, target)
+	
+func processSkill(source : Entity, startLocation : Vector2, _targets : Array, _itemStats : Dictionary = {}) -> void:
+	for entity in _targets:
+		if entity is Entity:
+			createBullet(source, startLocation, entity.global_position, _itemStats)
+
+func createBullet(source : Entity, startLocation : Vector2, targetV2 : Vector2, itemStats : Dictionary = {}):
+	var b = BulletManager.instantiateBullet(bullet, prepareAttack(source, itemStats), startLocation, (targetV2 - startLocation).normalized())
+	var origin = itemStats.get("TRIGGERED_FROM", null)
+	if origin:
+		b.ignorableAreas.append(origin)
 	if(source.isPlayer()):
 		b.setCollisionLayer([6], true)
 		b.setCollisionMask([2,3], true)
 	else:
 		b.setCollisionLayer([5], true)
 		b.setCollisionMask([2,4], true)
+	
