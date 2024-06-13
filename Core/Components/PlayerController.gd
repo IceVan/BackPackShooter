@@ -13,8 +13,6 @@ var speed = 0
 func _ready():
 	speed = GUtils.getNmericProperty(nPlayer.stats, "STATS", "SPEED", 100)
 	autoTarget = false
-	#DisplayServer.window_get_size()
-	#get_viewport().get_visible_rect()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func processInput(_delta):
