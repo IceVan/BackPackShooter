@@ -54,8 +54,6 @@ func processNextSkillInChain(area):
 	var skills = attackData.stats.get("SKILLS", [])
 	var firstSkill = true
 	for skill in skills:
-		#tworzy nowe czy referencja?
-		#var stats = attackData.stats
 		var targettingType = skill.get("TARGETTING", null)
 		if !targettingType:
 			targettingType = "CLOSEST" if firstSkill else "RANDOM"
