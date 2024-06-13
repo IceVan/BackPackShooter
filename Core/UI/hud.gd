@@ -9,6 +9,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	updateDamageStatistics()
+	$NoBulletsNode.text = "Bullets Node: " + str(BulletManager.getNumberOfBulletsFromNode())
 
 func updateDamageStatistics():
 	$TotalDamageDealt.text = "Total dmg dealt: " + str(ShowStatistics.getTotDamageStats())

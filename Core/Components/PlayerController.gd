@@ -21,10 +21,12 @@ func processInput(_delta):
 
 	nPlayer.velocity = Vector2(direction_x, direction_y).normalized() * speed
 		
-	nCamera.set("offset", Vector2(0, 0))
+	var cursorPosition = getCursorPosition()
+	
+	nCamera.set("offset", calculateCameraOffset(cursorPosition, DisplayServer.window_get_size()))
 	nCamera.set("zoom", Vector2(0.5, 0.5))
 	# look at mouse
-	self.look_at(getCursorPosition())
+	self.look_at(cursorPosition)
 	
 	if(Input.get_action_raw_strength("AUTO_TARGET")):
 		nPlayer.skillsComponent.swithAutoTarget()
@@ -52,3 +54,9 @@ func processInput(_delta):
 		
 func getCursorPosition():
 	return get_global_mouse_position()
+	
+func calculateCameraOffset(cursorPosition : Vector2, displaySize : Vector2) -> Vector2 :
+	return Vector2(\
+		(cursorPosition.x - global_position.x)/(displaySize.x/64.0),\
+		(cursorPosition.y - global_position.y)/(displaySize.y/64.0),\
+	)
