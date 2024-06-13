@@ -32,7 +32,9 @@ func prepareAttack(source : Entity, itemStats : Dictionary = {}) -> AttackResour
 	attack.source = source
 	attack.tags = tags
 	attack.stats = \
-	GUtils.addToAttackStats({"ATTACK" = source.stats.get("ATTACK",{}).duplicate(true)}, itemStats if !itemStats.is_empty() else associatedItem.stats)
+		GUtils.addToAttackStats(\
+			{"ATTACK" = source.stats.get("ATTACK",{}).duplicate(true)},\
+			itemStats if !itemStats.is_empty() else associatedItem.stats)
 	attack.stats = modifyAttack(attack.stats)
 	attack.stats = GUtils.addToStats(attack.stats, stats)
 	return attack
@@ -50,20 +52,30 @@ func processSkill(_source : Entity, startLocation : Vector2, _targets : Array[En
 	
 func processDirectionSkill(_source : Entity, startLocation : Vector2, _targets : Array[Vector2], _itemStats : Dictionary = {}) -> void:
 	pass
+
+func processStaticSkill(_source : Entity, startLocation : Vector2, _targets : Array, attackData : AttackResource = null) -> void:
+	pass
 	
-func getTargets(_source : Entity, startLocation : Vector2, forceAuto : bool = false) -> Array:
+func processStaticDirectionSkill(_source : Entity, startLocation : Vector2, _targets : Array, attackData : AttackResource = null) -> void:
+	pass
+
+
+func getTargets(_source : Entity, startLocation : Vector2, type : String, forceAuto : bool = false) -> Array:
 	if(_source.isPlayer()):
 		if(autoTarget || blockManualTarget || forceAuto):
-			var closestEntity = null
-			var closestDist_sqr = pow(maxRange, 2)
-			for entity in get_tree().get_nodes_in_group("Enemy"):
-				var length_sqr = (startLocation - entity.global_position).length_squared()
-				if length_sqr > 0 && length_sqr < closestDist_sqr:
-					closestEntity = entity
-					closestDist_sqr = length_sqr
-					
-			if(closestEntity != null):
-				return [closestEntity]
+			if(type == "CLOSEST"):
+				var closestEntity = null
+				var closestDist_sqr = pow(maxRange, 2)
+				for entity in get_tree().get_nodes_in_group("Enemy"):
+					var length_sqr = (startLocation - entity.global_position).length_squared()
+					if length_sqr > 0 && length_sqr < closestDist_sqr:
+						closestEntity = entity
+						closestDist_sqr = length_sqr
+						
+				if(closestEntity != null):
+					return [closestEntity]
+			elif type == "RANDOM":
+				return [Vector2(startLocation.x + randf_range(-1,1), startLocation.y + randf_range(-1,1))]
 		else:
 			return [_source.controllComponent.getCursorPosition()]
 	else:
@@ -72,8 +84,6 @@ func getTargets(_source : Entity, startLocation : Vector2, forceAuto : bool = fa
 	return []
 	
 func _ready():
-#	assert(self.get_parent().component)
-#	caster = get_parent().component.get_parent()
 	autoTimer.wait_time = cooldown
 	autoTimer.one_shot = !autoUse
 	
@@ -82,7 +92,7 @@ func use(source : Entity, targets : Array = []) -> void:
 	if(!caster):
 		caster = source
 	if(isReady):
-		var trg = targets if targets.size() > 0 else getTargets(caster, caster.global_position)
+		var trg = targets if targets.size() > 0 else getTargets(caster, caster.global_position, "CLOSEST")
 		if(trg.size() > 0 && trg[0] is Entity):
 			processSkill(caster, caster.global_position, trg)
 		elif(trg.size() > 0 && trg[0] is Vector2):
@@ -90,12 +100,12 @@ func use(source : Entity, targets : Array = []) -> void:
 		isReady = false
 		autoTimer.start()
 
-func staticUse(source : Entity, startLocation : Vector2, targets : Array, itemStats : Dictionary = {}) -> void:
-	var trg = targets if targets.size() > 0 else getTargets(source, startLocation, true)
+func staticUse(source : Entity, startLocation : Vector2, targets : Array, attackData : AttackResource = null) -> void:
+	var trg = targets if targets.size() > 0 else getTargets(source, startLocation, attackData.stats.get("TARGETTING", "RANDOM"), true)
 	if(trg.size() > 0 && trg[0] is Entity):
-		processSkill(source, startLocation, trg, itemStats)
+		processStaticSkill(source, startLocation, trg, attackData)
 	elif(trg.size() > 0 && trg[0] is Vector2):
-		processDirectionSkill(source, startLocation, trg, itemStats)
+		processStaticDirectionSkill(source, startLocation, trg, attackData)
 	
 func _on_timer_timeout():
 	isReady = true

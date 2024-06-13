@@ -1,10 +1,11 @@
 extends Node
 
-@export var bullets : Array[BaseBullet] = []
-
 
 func _process(_delta):
 	pass
+
+func getNumberOfBulletsFromNode():
+	return get_child_count()
 
 func instantiateBullet(bullet : PackedScene, \
 	attackData : AttackResource, \
@@ -17,6 +18,5 @@ func instantiateBullet(bullet : PackedScene, \
 	b.direction = direction
 	b.attackData = attackData
 	self.add_child(b)
-	bullets.append(b)
 	b.move_to_front()
 	return b

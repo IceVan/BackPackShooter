@@ -52,10 +52,28 @@ func _on_area_entered(area):
 
 func processNextSkillInChain(area):
 	var skills = attackData.stats.get("SKILLS", [])
+	var firstSkill = true
 	for skill in skills:
+		#tworzy nowe czy referencja?
+		#var stats = attackData.stats
+		var targettingType = skill.get("TARGETTING", null)
+		if !targettingType:
+			targettingType = "CLOSEST" if firstSkill else "RANDOM"
+			
+		var data = AttackResource.new({},[])
+		data.source = attackData.source
+		data.stats["ATTACK"] = attackData.stats.get("ATTACK",{})
+		data.stats["TRIGGERED_FROM"] = area
+		data.stats["SKILLS"] = attackData.stats.get("SKILLS", [])
+		data.stats["ATTACK"] = attackData.stats.get("ATTACK",{})
+		data.stats["TRIGGERED_FROM"] = area
+		data.stats["TARGETTING"] = targettingType
+		data.stats["SKILLS"] = skill.get("SKILLS", [])
+		data.stats["SKILL"] = skill
 		SkillManager.staticUse(\
 			skill.get("SKILL_NAME",""),\
-			attackData.source,\
+			data.source,\
 			area.global_position,\
 			[],\
-			{"ATTACK" : attackData.stats.get("ATTACK",{}), "TRIGGERED_FROM" : area})
+			data)
+		firstSkill = false

@@ -4,7 +4,7 @@ var skillsDictonary : Dictionary = {}
 
 const preloadedResources = {\
 	"SHOOT_SINGLE" : preload("res://Core/Skill/ShootSingle.tscn"),\
-	"SHOOT_CONE" : preload("res://Core/Skill/ShootPaf.tscn"),\
+	"PARAMETRIZED_SHOOT" : preload("res://Core/Skill/ParametrizedShoot.tscn"),\
 	"SHOOT_SERIE" : preload("res://Core/Skill/ShootSingle.tscn"),\
 	
 	"ENEMY_TARGETED_MELEE_1" : preload("res://Core/Skill/EnemyTargetedMelee1.tscn"),\
@@ -56,7 +56,7 @@ func createSkill(skillName : String, skillData : Dictionary = {}) -> SkillBase:
 func getSkill(skillName : String) -> SkillBase:
 	return skillsDictonary.get(skillName, null)
 	
-func staticUse(skillName : String, source : Entity, startLocation : Vector2, targets : Array, itemStats : Dictionary = {}) -> void:
+func staticUse(skillName : String, source : Entity, startLocation : Vector2, targets : Array, attackData : AttackResource) -> void:
 	var skill = getSkill(skillName)
 	if skill:
-		skill.staticUse(source, startLocation, targets, itemStats)
+		skill.staticUse(source, startLocation, targets, attackData)

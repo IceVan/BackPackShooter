@@ -6,7 +6,7 @@ func processSkill(_source : Entity, startLocation : Vector2, _targets : Array, _
 		if target.healthComponent:
 			target.healthComponent.damage(prepareAttack(_source))
 	
-func getTargets(_source : Entity, startLocation : Vector2, forceAuto : bool = false) -> Array:
+func getTargets(_source : Entity, startLocation : Vector2, type : String = "CLOSEST", forceAuto : bool = false) -> Array:
 	#TODO add limit
 	var entities = get_tree().get_nodes_in_group("Player")\
 	.filter(func(node): return (node.global_position - startLocation).length() < maxRange)
