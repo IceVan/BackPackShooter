@@ -4,11 +4,13 @@ class_name ParametrizedShoot
 @export var bullet : PackedScene
 #TODO number of attacks
 @export var numberOfAttacks : int = 1
+@export var delayBetweenAttacks : float = 0.1
 @export var numberOfProjectilesPerAttack : int = 1
 @export var angle : float = 0.0
 
 func staticUse(source : Entity, startLocation : Vector2, targets : Array, attackData : AttackResource = null) -> void:
 	var sNumberOfAttacks = attackData.stats.get("SKILL",{}).get("SKILL_PARAMETRIZES_SHOOT_NUMBER_OF_ATTACKS", 1)
+	var sDelayBetweenAttacks = max(attackData.stats.get("SKILL",{}).get("SKILL_DELAY_BETWEEN_ATTACKS", 0.1), 0.1)
 	var sNumberOfProjectilesPerAttack = attackData.stats.get("SKILL",{}).get("SKILL_PARAMETRIZES_SHOOT_NUMBER_OF_PROJECTILES_PER_ATTACK", 1)
 	var sAngle = attackData.stats.get("SKILL",{}).get("SKILL_PARAMETRIZES_SHOOT_ANGLE", 0.0)
 	
@@ -16,34 +18,44 @@ func staticUse(source : Entity, startLocation : Vector2, targets : Array, attack
 	if(trg.size() > 0 && trg[0] is Entity):
 		for entity in trg:
 			if entity is Entity:
-				var direction = (entity.global_position - startLocation).normalized().rotated(-deg_to_rad(sAngle/2))
-				for i in sNumberOfProjectilesPerAttack:
-					createBullet(source, startLocation, entity.global_position, direction, attackData)
-					direction = direction.rotated(deg_to_rad(sAngle/sNumberOfProjectilesPerAttack))
+				var entityPosition = entity.global_position
+				for n in sNumberOfAttacks:
+					if(n > 0): await get_tree().create_timer(sDelayBetweenAttacks).timeout
+					var direction = (entityPosition - startLocation).normalized().rotated(-deg_to_rad(sAngle/2))
+					for i in sNumberOfProjectilesPerAttack:
+						createBullet(source, startLocation, entityPosition, direction, attackData)
+						direction = direction.rotated(deg_to_rad(sAngle/sNumberOfProjectilesPerAttack))
 	elif(trg.size() > 0 && trg[0] is Vector2):
 		for target in trg:
 			if target is Vector2:
-				var direction = (target - startLocation).normalized().rotated(-deg_to_rad(sAngle/2))
-				for i in sNumberOfProjectilesPerAttack:
-					createBullet(source, startLocation, target, direction, attackData)
-					direction = direction.rotated(deg_to_rad(sAngle/sNumberOfProjectilesPerAttack))
+				for n in sNumberOfAttacks:
+					if(n > 0): await get_tree().create_timer(sDelayBetweenAttacks).timeout
+					var direction = (target - startLocation).normalized().rotated(-deg_to_rad(sAngle/2))
+					for i in sNumberOfProjectilesPerAttack:
+						createBullet(source, startLocation, target, direction, attackData)
+						direction = direction.rotated(deg_to_rad(sAngle/sNumberOfProjectilesPerAttack))
 		
 
 func processDirectionSkill(source : Entity, startLocation : Vector2, _targets : Array, _itemStats : Dictionary = {}) -> void:
 	for target in _targets:
 		if target is Vector2:
-			var direction = (target - startLocation).normalized().rotated(-deg_to_rad(angle/2))
-			for i in numberOfProjectilesPerAttack:
-				createBullet(source, startLocation, target, direction, prepareAttack(source, _itemStats))
-				direction = direction.rotated(deg_to_rad(angle/numberOfProjectilesPerAttack))
+			for n in numberOfAttacks:
+				if(n > 0): await get_tree().create_timer(delayBetweenAttacks).timeout
+				var direction = (target - startLocation).normalized().rotated(-deg_to_rad(angle/2))
+				for i in numberOfProjectilesPerAttack:
+					createBullet(source, startLocation, target, direction, prepareAttack(source, _itemStats))
+					direction = direction.rotated(deg_to_rad(angle/numberOfProjectilesPerAttack))
 	
 func processSkill(source : Entity, startLocation : Vector2, _targets : Array, _itemStats : Dictionary = {}) -> void:
 	for entity in _targets:
 		if entity is Entity:
-			var direction = (entity.global_position - startLocation).normalized().rotated(-deg_to_rad(angle/2))
-			for i in numberOfProjectilesPerAttack:
-				createBullet(source, startLocation, entity.global_position, direction, prepareAttack(source, _itemStats))
-				direction = direction.rotated(deg_to_rad(angle/numberOfProjectilesPerAttack))
+			var entityPosition = entity.global_position
+			for n in numberOfAttacks:
+				if(n > 0): await get_tree().create_timer(delayBetweenAttacks).timeout
+				var direction = (entityPosition - startLocation).normalized().rotated(-deg_to_rad(angle/2))
+				for i in numberOfProjectilesPerAttack:
+					createBullet(source, startLocation, entityPosition, direction, prepareAttack(source, _itemStats))
+					direction = direction.rotated(deg_to_rad(angle/numberOfProjectilesPerAttack))
 
 #TODO przpisać na to?
 func processStaticSkill(_source : Entity, startLocation : Vector2, _targets : Array, attackData : AttackResource = null) -> void:

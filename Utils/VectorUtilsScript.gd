@@ -6,3 +6,7 @@ static func getGlobalVectorToMouse(canvas : CanvasItem, node : Node = canvas) ->
 
 static func getGlobalDirectionToMouse(canvas : CanvasItem, node : Node = canvas) -> Vector2:
 	return getGlobalVectorToMouse(canvas, node).normalized()
+
+static func getRandomInsideCircle(size : float = 1.0) -> Vector2:
+	var theta : float = randf() * 2 * PI
+	return Vector2(cos(theta), sin(theta)) * sqrt(randf()) * size

@@ -19,10 +19,8 @@ var targetPosition : Vector2
 
 
 func _ready():
-	stats = baseStats.duplicate(true)
-	if(inventoryComponent): GUtils.addToStats(stats, inventoryComponent.getStatsFromItems())
+	updateStats()
 	if(skillsComponent): skillsComponent.startAll(self)
-	if(controllComponent): controllComponent.speed = GUtils.getNmericProperty(stats, "STATS", "SPEED", 100)
 	
 
 func _physics_process(delta):
@@ -60,6 +58,11 @@ func getItems() -> Array[Item]:
 	if(inventoryComponent):
 		items.append_array(inventoryComponent.items)
 	return items
+
+func updateStats():
+	stats = baseStats.duplicate(true)
+	if(inventoryComponent): GUtils.addToStats(stats, inventoryComponent.getStatsFromItems())
+	if(controllComponent): controllComponent.speed = GUtils.getNmericProperty(stats, "STATS", "SPEED", 100)
 
 func _on_health_component_died():
 	ShowStatistics.enemyKilled()
