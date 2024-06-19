@@ -9,3 +9,7 @@ func getStatsFromItems() -> Dictionary :
 		GUtils.addToStats(stats, item.stats)
 	
 	return stats
+
+func addItems(addedItems : Array = []):
+	items.append_array(addedItems)
+	get_parent().updateStats()

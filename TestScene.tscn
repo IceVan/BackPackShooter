@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://duuwenhfjr3ic"]
+[gd_scene load_steps=12 format=3 uid="uid://duuwenhfjr3ic"]
 
 [ext_resource type="Texture2D" uid="uid://7d6d4w8rdi7" path="res://steppe-1-winter.jpg" id="1_htcnu"]
 [ext_resource type="PackedScene" uid="uid://rqrufasdcnra" path="res://Core/Entities/Player.tscn" id="2_wh0i5"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bqsw62sgr4smk" path="res://icon.svg" id="6_ddtn1"]
 [ext_resource type="Script" path="res://Core/Components/Hitboxes/HitboxComponent.gd" id="6_w1wtd"]
 [ext_resource type="PackedScene" uid="uid://6gpwjfefuq0p" path="res://Core/UI/hud.tscn" id="8_60yai"]
+[ext_resource type="PackedScene" uid="uid://c4ujxy0kw7ci3" path="res://Core/Entities/Spawn/Spawn.tscn" id="9_effny"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i5fex"]
 
@@ -295,3 +296,18 @@ baseStats = {
 "REGENERATION": 0.7
 }
 }
+
+[node name="Spawn" parent="." instance=ExtResource("9_effny")]
+position = Vector2(-110, -1059)
+gizmo_extents = 200.0
+spawnEntity = ExtResource("4_prv4t")
+amount = 3
+delayBetweenEntities = 0.5
+
+[node name="Spawn2" parent="." instance=ExtResource("9_effny")]
+position = Vector2(1448, -339)
+gizmo_extents = 200.0
+spawnEntity = ExtResource("4_prv4t")
+amount = 2
+delayBetweenEntities = 1.0
+cooldown = 5.0
