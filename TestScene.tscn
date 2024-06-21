@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://Core/Components/Hitboxes/HitboxComponent.gd" id="6_w1wtd"]
 [ext_resource type="PackedScene" uid="uid://6gpwjfefuq0p" path="res://Core/UI/hud.tscn" id="8_60yai"]
 [ext_resource type="PackedScene" uid="uid://c4ujxy0kw7ci3" path="res://Core/Entities/Spawn/Spawn.tscn" id="9_effny"]
+[ext_resource type="PackedScene" uid="uid://d34ui55lox4oy" path="res://Core/Components/Inventory/Inventory.tscn" id="9_mk0dl"]
+
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i5fex"]
 
@@ -311,3 +313,5 @@ spawnEntity = ExtResource("4_prv4t")
 amount = 2
 delayBetweenEntities = 1.0
 cooldown = 5.0
+
+[node name="Inventory" parent="." instance=ExtResource("9_mk0dl")]

@@ -17,3 +17,5 @@ stats = {
 }
 bonusStats = {}
 tags = Array[int]([])
+imgPath = ""
+baseGridPositions = Array[Vector2]([])

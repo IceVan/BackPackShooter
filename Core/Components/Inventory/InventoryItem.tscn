@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cam1jx5ie0nks"]
+
+[ext_resource type="Script" path="res://Core/Components/Inventory/InventoryItem.gd" id="1_nudtx"]
+
+[node name="InventoryItem" type="Node2D"]
+script = ExtResource("1_nudtx")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
