@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://duuwenhfjr3ic"]
+[gd_scene load_steps=13 format=3 uid="uid://duuwenhfjr3ic"]
 
 [ext_resource type="Texture2D" uid="uid://7d6d4w8rdi7" path="res://steppe-1-winter.jpg" id="1_htcnu"]
 [ext_resource type="PackedScene" uid="uid://rqrufasdcnra" path="res://Core/Entities/Player.tscn" id="2_wh0i5"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://6gpwjfefuq0p" path="res://Core/UI/hud.tscn" id="8_60yai"]
 [ext_resource type="PackedScene" uid="uid://c4ujxy0kw7ci3" path="res://Core/Entities/Spawn/Spawn.tscn" id="9_effny"]
 [ext_resource type="PackedScene" uid="uid://d34ui55lox4oy" path="res://Core/Components/Inventory/Inventory.tscn" id="9_mk0dl"]
-
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i5fex"]
 
@@ -314,4 +313,5 @@ amount = 2
 delayBetweenEntities = 1.0
 cooldown = 5.0
 
-[node name="Inventory" parent="." instance=ExtResource("9_mk0dl")]
+[node name="Inventory" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("9_mk0dl")]
+entity = NodePath("../Player")

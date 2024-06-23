@@ -2,7 +2,6 @@ extends TextureRect
 class_name InventoryCell
 
 @export var itemRef : InventoryItem
-@export var gridLocation : Vector2
 
 @onready var filter = $StatusFilter
 

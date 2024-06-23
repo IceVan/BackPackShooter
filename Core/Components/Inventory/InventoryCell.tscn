@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Core/Components/Inventory/InventotyCell.gd" id="2_gv7yr"]
 
 [node name="Cell" type="TextureRect"]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(64, 64)
 texture = ExtResource("1_feda5")
 expand_mode = 1
 script = ExtResource("2_gv7yr")
