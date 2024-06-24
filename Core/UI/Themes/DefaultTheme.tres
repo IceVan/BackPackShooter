@@ -1,0 +1,24 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cyqopbh6yucwu"]
+
+[ext_resource type="FontFile" uid="uid://1eh4a0wxqdiv" path="res://Art/fonts/Xolonium-Regular.ttf" id="1_e0tvw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y63t7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_liqaw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_irthn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qychs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_60bfe"]
+
+[resource]
+default_font = ExtResource("1_e0tvw")
+Button/colors/font_focus_color = Color(0.94902, 0.254902, 0.254902, 1)
+Button/colors/font_hover_color = Color(0.94902, 0.254902, 0.254902, 1)
+Button/colors/font_pressed_color = Color(0.94902, 0.254902, 0.254902, 1)
+Button/styles/disabled = SubResource("StyleBoxEmpty_y63t7")
+Button/styles/focus = SubResource("StyleBoxEmpty_liqaw")
+Button/styles/hover = SubResource("StyleBoxEmpty_irthn")
+Button/styles/normal = SubResource("StyleBoxEmpty_qychs")
+Button/styles/pressed = SubResource("StyleBoxEmpty_60bfe")

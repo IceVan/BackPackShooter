@@ -18,5 +18,6 @@ stats = {
 bonusStats = {}
 gridPositions = Array[Vector2]([])
 gridLocation = Vector2(0, 0)
+rotationDegrees = 0.0
 tags = Array[int]([])
 imgPath = ""

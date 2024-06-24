@@ -21,6 +21,7 @@ var iconAnchor : Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	return
 	gridSize = Vector2i(12,7)
 	assert(gridSize)
 	gridContainer.columns = gridSize.x

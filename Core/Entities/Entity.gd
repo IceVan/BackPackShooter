@@ -65,8 +65,9 @@ func updateStats():
 	if(controllComponent): controllComponent.speed = GUtils.getNmericProperty(stats, "STATS", "SPEED", 100)
 
 func _on_health_component_died():
-	ShowStatistics.enemyKilled()
-	destroy()
+	if not isPlayer():
+		ShowStatistics.enemyKilled()
+		destroy()
 
 #func _on_health_component_health_changed(oldHealth, currentHealth):
 #	pass

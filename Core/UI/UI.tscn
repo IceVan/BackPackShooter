@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cquvxt1gu0ofx"]
+
+[ext_resource type="Script" path="res://Core/UI/UI.gd" id="1_vlm5m"]
+[ext_resource type="PackedScene" uid="uid://6gpwjfefuq0p" path="res://Core/UI/hud.tscn" id="2_3k2qn"]
+[ext_resource type="PackedScene" uid="uid://d34ui55lox4oy" path="res://Core/Components/Inventory/Inventory.tscn" id="2_f2j8t"]
+[ext_resource type="PackedScene" uid="uid://cjgxsqppbcywg" path="res://Core/UI/Menu/MainMenu.tscn" id="3_tsjnu"]
+
+[node name="Ui" type="CanvasLayer"]
+script = ExtResource("1_vlm5m")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Hud" parent="Control" instance=ExtResource("2_3k2qn")]
+unique_name_in_owner = true
+
+[node name="Inventory" parent="Control" instance=ExtResource("2_f2j8t")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="MainMenu" parent="Control" instance=ExtResource("3_tsjnu")]
+unique_name_in_owner = true
+layout_mode = 1
+offset_top = 0.0
+offset_bottom = 0.0
