@@ -1,11 +1,12 @@
 extends Node
 
+@onready var bulletsNode = $Bullets
 
 func _process(_delta):
 	pass
 
 func getNumberOfBulletsFromNode():
-	return get_child_count()
+	return bulletsNode.get_child_count()
 
 func instantiateBullet(bullet : PackedScene, \
 	attackData : AttackResource, \
@@ -17,6 +18,10 @@ func instantiateBullet(bullet : PackedScene, \
 	b.global_position = spawnPointGlobalPosition
 	b.direction = direction
 	b.attackData = attackData
-	self.add_child(b)
+	bulletsNode.add_child(b)
 	b.move_to_front()
 	return b
+
+func onSceneExited():
+	for bullet in bulletsNode.get_children():
+		bullet.queue_free()

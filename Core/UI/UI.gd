@@ -5,6 +5,9 @@ class_name UI
 @onready var inventory : Inventory = %Inventory
 @onready var mainMenu : MainMenu = %MainMenu
 
+@onready var healthBar : ProgressBar = %Hud.healthBar
+@onready var soulsBar : ProgressBar = %Hud.soulsBar
+
 signal pause_pressed
 signal escape_pressed
 signal inventory_pressed

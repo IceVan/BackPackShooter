@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://6gpwjfefuq0p"]
+[gd_scene load_steps=5 format=3 uid="uid://6gpwjfefuq0p"]
 
 [ext_resource type="FontFile" uid="uid://1eh4a0wxqdiv" path="res://Art/fonts/Xolonium-Regular.ttf" id="1_431wq"]
 [ext_resource type="Script" path="res://Core/UI/Hud.gd" id="1_ybq2m"]
+[ext_resource type="PackedScene" uid="uid://bpkfyfl1146wq" path="res://Core/UI/HealthBar.tscn" id="3_bxy5x"]
+[ext_resource type="PackedScene" uid="uid://djj63gvyodnco" path="res://Core/UI/SoulsBar.tscn" id="4_os3qh"]
 
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_ybq2m")
@@ -61,3 +63,13 @@ theme_override_fonts/font = ExtResource("1_431wq")
 theme_override_font_sizes/font_size = 20
 text = "NoBulletsNode"
 metadata/_edit_use_anchors_ = true
+
+[node name="HealthBar" parent="." instance=ExtResource("3_bxy5x")]
+unique_name_in_owner = true
+offset_top = 35.0
+offset_bottom = 67.0
+
+[node name="SoulsBar" parent="." instance=ExtResource("4_os3qh")]
+unique_name_in_owner = true
+offset_top = 2.0
+offset_bottom = 34.0
