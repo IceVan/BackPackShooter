@@ -17,11 +17,11 @@ var itemHeld = null
 var currentSlot = null
 var canPlace = false
 var iconAnchor : Vector2
+var inventoryReady = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	return
 	gridSize = Vector2i(12,7)
 	assert(gridSize)
 	gridContainer.columns = gridSize.x
@@ -29,23 +29,22 @@ func _ready():
 	for i in range(gridSize.x * gridSize.y):
 		createCell()
 	
-	if entity.isPlayer() && entity.inventoryComponent:
-		inventory_changed.connect(entity.inventoryComponent._on_inventoryUI_inventory_changed)
-		#pushing initialization to next callStack which (i think) is after cellNodes are ready and have position
-		initializeItems.call_deferred(entity.inventoryComponent.items)
+	get_tree().current_scene.playerChanged.connect(initializePlayerInventory)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if itemHeld:
-		if Input.is_action_just_pressed("ACTION_2"):
-			rotateItem()
-		elif Input.is_action_just_pressed("ACTION_1") \
-		&& scrollContainer.get_global_rect().has_point(get_global_mouse_position()):
-			placeItem()
-	else:
-		if Input.is_action_just_pressed("ACTION_1") \
-		&& scrollContainer.get_global_rect().has_point(get_global_mouse_position()):
-			pickItem()
+	if entity:
+		if itemHeld:
+			if Input.is_action_just_pressed("ACTION_2"):
+				rotateItem()
+			elif Input.is_action_just_pressed("ACTION_1") \
+			&& scrollContainer.get_global_rect().has_point(get_global_mouse_position()):
+				placeItem()
+		else:
+			if Input.is_action_just_pressed("ACTION_1") \
+			&& scrollContainer.get_global_rect().has_point(get_global_mouse_position()):
+				pickItem()
 
 func createCell():
 	var nCell = cellScene.instantiate()
@@ -54,6 +53,14 @@ func createCell():
 	gridArray.append(nCell)
 	nCell.cellEntered.connect(_on_cell_mouse_entered)
 	nCell.cellExited.connect(_on_cell_mouse_exited)
+
+func initializePlayerInventory(aentity : Entity):
+	if aentity.isPlayer() && aentity.inventoryComponent:
+		entity = aentity
+		inventory_changed.connect(entity.inventoryComponent._on_inventoryUI_inventory_changed)
+		#pushing initialization to next callStack which (i think) is after cellNodes are ready and have position
+		#await ready
+		initializeItems.call_deferred(entity.inventoryComponent.items)
 
 func getItems() -> Array[InventoryItem]:
 	var items : Array[InventoryItem] = []
@@ -88,9 +95,10 @@ func initializeItems(items : Array[Item]):
 			if gridPosition.x < iconAnchor.x: iconAnchor.x = gridPosition.x
 			
 		var calculatedSnapDestination = placementLocation.cellID + iconAnchor.x + iconAnchor.y * columnCount
+		
 		iconAnchor = Vector2(2000,2000)
 		
-		inventoryItem.snapTo(gridArray[calculatedSnapDestination].global_position)
+		inventoryItem.snapToCell(gridArray[calculatedSnapDestination])
 	emit_signal("inventory_changed", getItems())
 
 
@@ -117,12 +125,13 @@ func placeItem():
 	if not canPlace or not currentSlot:
 		return
 	
+	itemHeld.global_position = get_global_mouse_position()
+	
 	var calculateCellId = currentSlot.cellID + iconAnchor.x + iconAnchor.y * columnCount 
-	itemHeld.snapTo(gridArray[calculateCellId].global_position)
+	itemHeld.snapToCell(gridArray[calculateCellId])
 	
 	itemHeld.get_parent().remove_child(itemHeld)
 	gridContainer.add_child(itemHeld)
-	itemHeld.global_position = get_global_mouse_position()
 	
 	itemHeld.gridCell = currentSlot
 	for gridPosition in itemHeld.gridPositions:
@@ -195,3 +204,7 @@ func _on_cell_mouse_entered(aCell):
 		
 func _on_cell_mouse_exited(aCell):
 	clearGrid()
+
+
+func _on_ready():
+	inventoryReady = true

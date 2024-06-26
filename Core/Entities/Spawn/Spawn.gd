@@ -18,8 +18,8 @@ func _process(delta):
 	pass
 
 func spawn():
-	for i in amount:
-		if amount > 1: await get_tree().create_timer(delayBetweenEntities).timeout
+	if get_tree():
+		if amount > 1 && get_tree(): await get_tree().create_timer(delayBetweenEntities).timeout
 		var position = global_position + VectorUtilsGlobal.getRandomInsideCircle(gizmo_extents)
 		var entity : Entity = spawnEntity.instantiate()
 		entity.inventoryComponent.addItems(entitiesAdditionalItems)

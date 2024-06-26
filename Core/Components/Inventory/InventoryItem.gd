@@ -35,16 +35,15 @@ func rotateItem():
 	if rotation_degrees>=360:
 		rotation_degrees = 0
 
-func snapTo(destination : Vector2):
-	var tween = get_tree().create_tween()
-	
-	#NO IDEA WHAT IS HAPPENING
-	#fixes snapping of image to wrong position
+func snapToCell(cell : InventoryCell):
+	var _position = Vector2(cell.cellID % 12, cell.cellID / 12) * cell.size
+	#cell.get_rect().position
 	if int(rotation_degrees) % 180 == 0 :
-		destination += textureRect.size/2
+		_position += textureRect.size/2
 	else:
 		var tempXYSwitch = Vector2(textureRect.size.y, textureRect.size.x)
-		destination += tempXYSwitch/2
+		_position += tempXYSwitch/2
 		
-	tween.tween_property(self, "global_position", destination, 0.15).set_trans(Tween.TRANS_SINE)
+	position = _position
+	
 	selected = false

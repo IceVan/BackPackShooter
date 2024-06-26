@@ -9,6 +9,9 @@ var currentState = GameState.MAIN_MENU
 var currentScene = null
 var currentPlayer = null
 
+signal locationChanged #TODO
+signal playerChanged
+
 enum GameState { MAIN_MENU, MAP, HUB, PAUSED, PAUSED_UI }
 
 # Called when the node enters the scene tree for the first time.
@@ -17,6 +20,10 @@ func _ready():
 	prepareTree()
 	userInterface.switchUI(currentState)
 	userInterface.mainMenu.start_game.connect(startGame)
+	userInterface.pause_pressed.connect(pauseGame)
+	userInterface.escape_pressed.connect(goToMainMenu)
+	userInterface.inventory_pressed.connect(openInventory)
+	
 
 func startGame():
 	currentState = GameState.MAP
@@ -31,7 +38,17 @@ func goToMainMenu():
 		get_tree().paused = true
 		currentState = GameState.MAIN_MENU
 		userInterface.switchUI(currentState)
-	elif currentState == GameState.MAIN_MENU:
+	elif currentState == GameState.MAIN_MENU || currentState == GameState.PAUSED_UI:
+		currentState = GameState.MAP #MAP / HUB
+		userInterface.switchUI(currentState)
+		get_tree().paused = false
+
+func openInventory():
+	if currentState == GameState.MAP || currentState == GameState.HUB:
+		get_tree().paused = true
+		currentState = GameState.PAUSED_UI
+		userInterface.switchUI(currentState)
+	elif currentState == GameState.PAUSED_UI:
 		currentState = GameState.MAP #MAP / HUB
 		userInterface.switchUI(currentState)
 		get_tree().paused = false
@@ -51,22 +68,19 @@ func restartGameState():
 	
 func prepareTree():
 	currentScene = sceneToLoad.instantiate()
-	currentPlayer = playerToLoad.instantiate()
-	currentScene.add_child(currentPlayer)
+	currentScene.add_child(createPlayer())
 	add_child(currentScene)
 	move_child(currentScene, 0)
+
+func createPlayer() -> Entity:
+	currentPlayer = playerToLoad.instantiate()
 	currentPlayer.healthComponent.died.connect(_on_player_death)
+	playerChanged.emit(currentPlayer)
+	return currentPlayer
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("PAUSE"):
-		#doesnt work, should be in UI and passed via signals since they work even if paused
-		#pauseGame()
-		pass
-	if Input.is_action_just_pressed("ESC"):
-		#doesnt work from menu, should be in UI and passed via signals since they work even if paused
-		goToMainMenu()
-		pass
+	pass
 
 func _on_player_death():
 	pauseAfterDeath()

@@ -5,6 +5,10 @@ class_name UI
 @onready var inventory : Inventory = %Inventory
 @onready var mainMenu : MainMenu = %MainMenu
 
+signal pause_pressed
+signal escape_pressed
+signal inventory_pressed
+
 func switchUI(gameState : GameManager.GameState):
 	match gameState:
 		GameManager.GameState.MAIN_MENU:
@@ -37,4 +41,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if Input.is_action_just_pressed("PAUSE"):
+		pause_pressed.emit()
+	if Input.is_action_just_pressed("ESC"):
+		escape_pressed.emit()
+	if Input.is_action_just_pressed("INVENTORY"):
+		inventory_pressed.emit()
