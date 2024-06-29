@@ -1,15 +1,16 @@
 [gd_scene load_steps=5 format=3 uid="uid://dydh88uwo13di"]
 
 [ext_resource type="Script" path="res://Core/System/GameManager.gd" id="1_nmnp0"]
-[ext_resource type="PackedScene" uid="uid://duuwenhfjr3ic" path="res://TestScene.tscn" id="2_2a6kx"]
 [ext_resource type="PackedScene" uid="uid://rqrufasdcnra" path="res://Core/Entities/Player.tscn" id="3_r8wsb"]
 [ext_resource type="PackedScene" uid="uid://cquvxt1gu0ofx" path="res://Core/UI/UI.tscn" id="4_4uqxr"]
+[ext_resource type="PackedScene" uid="uid://b0mnvvno2hygv" path="res://Core/System/LocationManager.tscn" id="4_88exp"]
 
 [node name="GameManager" type="Node2D" node_paths=PackedStringArray("userInterface")]
 script = ExtResource("1_nmnp0")
 playerToLoad = ExtResource("3_r8wsb")
-sceneToLoad = ExtResource("2_2a6kx")
 userInterface = NodePath("Ui")
+
+[node name="LocationManager" parent="." instance=ExtResource("4_88exp")]
 
 [node name="Ui" parent="." instance=ExtResource("4_4uqxr")]
 process_mode = 3

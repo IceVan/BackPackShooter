@@ -5,7 +5,7 @@ class_name CollectibleMagnesComponent
 @export var magnesStrength : float = 1.0
 @export var parentEntity : Entity
 
-@onready var collectiblesNode = get_tree().current_scene.currentScene.get_node("Collectibles")
+@onready var collectiblesNode = get_tree().current_scene.locationManager.getCollectibles()
 
 
 func onUpdate(delta):

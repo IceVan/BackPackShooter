@@ -11,7 +11,4 @@ func canBeCollected(_collectedBy : Entity) -> bool:
 	return true
 
 func canBeCollectedWrapper(collectedBy : Node2D) -> bool: 
-	if collectedBy is Entity:
-		return canBeCollected(collectedBy)
-	else:
-		return false
+	return canBeCollected(collectedBy) if collectedBy is Entity else false

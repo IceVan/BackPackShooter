@@ -58,10 +58,10 @@ zoom = Vector2(0.5, 0.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_s0smb")
 
-[node name="SimpleHitboxComponent" parent="." node_paths=PackedStringArray("paretnEntity") instance=ExtResource("11_j36ml")]
+[node name="SimpleHitboxComponent" parent="." node_paths=PackedStringArray("parentEntity") instance=ExtResource("11_j36ml")]
 collision_layer = 8
 collision_mask = 95
-paretnEntity = NodePath("..")
+parentEntity = NodePath("..")
 
 [node name="HurtBox" type="CollisionShape2D" parent="SimpleHitboxComponent"]
 shape = SubResource("CircleShape2D_h1w8v")

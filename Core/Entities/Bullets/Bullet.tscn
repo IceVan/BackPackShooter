@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://l6hishyoa0um"]
 
 [ext_resource type="Script" path="res://Core/Entities/Bullets/BaseBullet.gd" id="1_nij4y"]
-[ext_resource type="Texture2D" uid="uid://b25wo3pyu4i52" path="res://Art/banana.png" id="2_6n872"]
+[ext_resource type="Texture2D" uid="uid://we31pl7oqwsc" path="res://Art/85663628-930011404.png" id="2_8v7s0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m3wm6"]
 size = Vector2(36, 36)
@@ -15,7 +15,7 @@ speed = 1600.0
 
 [node name="Icon" type="Sprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_6n872")
+texture = ExtResource("2_8v7s0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_m3wm6")
