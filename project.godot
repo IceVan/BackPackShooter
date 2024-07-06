@@ -23,9 +23,26 @@ SkillManager="*res://Core/System/SkillManager.tscn"
 BulletManager="*res://Core/System/BulletManager.tscn"
 ShowStatistics="*res://Core/System/ShowStatistics.gd"
 
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=900
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/stretch/scale_mode="integer"
+
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[file_customization]
+
+folder_colors={
+"res://Core/Skill/": "blue",
+"res://Core/System/": "green",
+"res://Core/UI/": "yellow",
+"res://Data/": "red"
+}
 
 [input]
 

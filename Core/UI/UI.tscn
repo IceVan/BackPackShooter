@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Core/UI/UI.gd" id="1_vlm5m"]
 [ext_resource type="PackedScene" uid="uid://6gpwjfefuq0p" path="res://Core/UI/hud.tscn" id="2_3k2qn"]
-[ext_resource type="PackedScene" uid="uid://d34ui55lox4oy" path="res://Core/Components/Inventory/Inventory.tscn" id="2_f2j8t"]
 [ext_resource type="PackedScene" uid="uid://cjgxsqppbcywg" path="res://Core/UI/Menu/MainMenu.tscn" id="3_tsjnu"]
+[ext_resource type="PackedScene" uid="uid://d34ui55lox4oy" path="res://Core/UI/Inventory/Inventory.tscn" id="4_wtb7l"]
 
 [node name="Ui" type="CanvasLayer"]
 script = ExtResource("1_vlm5m")
@@ -27,6 +27,8 @@ layout_mode = 1
 offset_top = 0.0
 offset_bottom = 0.0
 
-[node name="Inventory" parent="Control" instance=ExtResource("2_f2j8t")]
+[node name="Inventory" parent="Control" instance=ExtResource("4_wtb7l")]
 unique_name_in_owner = true
 layout_mode = 1
+
+[connection signal="item_rect_changed" from="Control" to="." method="_on_control_item_rect_changed"]

@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://bt8air86r1c0f"]
-
-[ext_resource type="Script" path="res://Test/RangedWeaponT.gd" id="1_y8x4t"]
-[ext_resource type="PackedScene" uid="uid://ck0ptvnk326sn" path="res://Core/Entities/Bullets/Bullet.tscn" id="2_dsje3"]
-
-[node name="RangedT" type="Node2D"]
-script = ExtResource("1_y8x4t")
-bullet = ExtResource("2_dsje3")

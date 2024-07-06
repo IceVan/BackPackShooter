@@ -32,6 +32,7 @@ position = Vector2(649, 458)
 
 [node name="Soul" parent="Collectibles" instance=ExtResource("5_umq5w")]
 position = Vector2(-481, -155)
+soulValue = 50
 
 [node name="Soul2" parent="Collectibles" instance=ExtResource("5_umq5w")]
 position = Vector2(-557, -159)
@@ -41,12 +42,15 @@ position = Vector2(-542, -104)
 
 [node name="Soul4" parent="Collectibles" instance=ExtResource("5_umq5w")]
 position = Vector2(-512, -222)
+soulValue = 50
 
 [node name="Soul5" parent="Collectibles" instance=ExtResource("5_umq5w")]
 position = Vector2(441, -231)
+soulValue = 50
 
 [node name="Soul6" parent="Collectibles" instance=ExtResource("5_umq5w")]
 position = Vector2(388, -333)
+soulValue = 50
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(-256, -360)

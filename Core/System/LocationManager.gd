@@ -17,6 +17,7 @@ signal locationReady
 signal locationExited
 
 signal soulsChanged
+signal soulsMaxed
 
 
 func isLocationReady():
@@ -62,5 +63,6 @@ func _on_souls_collected(amount : int):
 		var nextCelling = soulsToPromote + fibNextSoulsToPromote
 		soulsToPromote = fibNextSoulsToPromote
 		fibNextSoulsToPromote = nextCelling
+		soulsMaxed.emit()
 	soulsChanged.emit(currentSouls, soulsToPromote)
 	

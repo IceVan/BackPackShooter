@@ -2,6 +2,7 @@ extends TextureRect
 class_name InventoryCell
 
 @export var itemRef : InventoryItem
+@export var isLoot : bool = false
 
 @onready var filter = $StatusFilter
 

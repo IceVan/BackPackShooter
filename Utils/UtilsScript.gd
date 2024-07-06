@@ -1,6 +1,8 @@
 extends Node
 class_name GUtils
 
+static var INVENTORY_CELL_BASE_SIZE = 64
+
 static func multiplyDmgStats(stats : Dictionary, factor : float) -> Dictionary :
 	if stats.has("DMG"):
 		stats["DMG"] = ceilf(stats["DMG"] * factor)
