@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://c7jx0nvecg46m"]
+
+[ext_resource type="Script" path="res://Core/Items/ItemResource.gd" id="1_ojbvv"]
+
+[resource]
+script = ExtResource("1_ojbvv")
+stats = {
+"STATS": {
+"MAX_HP": 10,
+"SPEED": 400
+}
+}
+bonusStats = {}
+gridPositions = Array[Vector2]([Vector2(0, 0), Vector2(1, 0), Vector2(1, 1)])
+gridLocation = Vector2(1, 1)
+rotationDegrees = 270.0
+tags = Array[int]([])
+imgPath = "res://Art/banana.png"

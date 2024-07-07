@@ -1,6 +1,8 @@
 extends Node
 class_name GUtils
 
+static var INVENTORY_CELL_BASE_SIZE = 64
+
 static func multiplyDmgStats(stats : Dictionary, factor : float) -> Dictionary :
 	if stats.has("DMG"):
 		stats["DMG"] = ceilf(stats["DMG"] * factor)
@@ -12,7 +14,10 @@ static func multiplyDmgStats(stats : Dictionary, factor : float) -> Dictionary :
 static func addToStats(base : Dictionary, stats : Dictionary) -> Dictionary :
 	for stat in stats.keys():
 		if base.has(stat):
-			base[stat] += stats[stat]
+			if base[stat] is Dictionary:
+				base[stat] = addToStats(base[stat], stats[stat])
+			else:
+				base[stat] += stats[stat]
 	
 	base.merge(stats)
 	

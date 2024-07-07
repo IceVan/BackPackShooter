@@ -14,19 +14,18 @@ var currentRegenCounter : float = 0
 @export var overTimeTimer : HealthOverTimeTimer
 
 signal healthChanged(old_health, new_health)
+signal maxHealthChanged(maxHealth)
 signal died
 
 var currentHealth 
 
 func _ready():
-	maxHealth = GUtils.getNmericProperty(parent.baseStats, "STATS", "MAX_HP") \
-	+ GUtils.getNmericProperty(parent.stats, "STATS", "MAX_HP") if get_parent() is Entity else maxHealth
-	maxHealth = maxi(maxHealth, MIN_HP)
+	var maxHP = GUtils.getNmericProperty(parent.baseStats, "STATS", "MAX_HP") \
+	+ GUtils.getNmericProperty(parent.stats, "STATS", "MAX_HP") if get_parent() is Entity else MIN_HP
+	changeMaxHealth(maxHP)
 	currentHealth = maxHealth
 	
 	passiveRegeneration = GUtils.getFloatingProperty(parent.baseStats, "STATS", "REGENERATION")
-#	if(healthBar):
-#		healthBar.setHealth(currentHealth,maxHealth)
 
 func damage(attack: AttackResource, includeDot: bool = true):
 	if(GUtils.getNmericProperty(attack.stats, "ATTACK", "DMG") > 0):
@@ -74,6 +73,9 @@ func regenerate(hp : int):
 		ShowStatistics.updatePlayerHealth(self)
 #		updateHealthBar(healthBar, currentHealth)
 
-#func updateHealthBar(_healthBar : HealthBar, _currentHealth : int):
-#	if(_healthBar):
-#		_healthBar.setHealth(_currentHealth,maxHealth)
+func changeMaxHealth(aMaxHealth : int):
+	if aMaxHealth > MIN_HP: 
+		var diff = aMaxHealth - maxHealth
+		maxHealth = aMaxHealth
+		maxHealthChanged.emit(maxHealth)
+		if diff > 0 : regenerate.call_deferred(diff)

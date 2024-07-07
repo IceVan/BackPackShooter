@@ -25,7 +25,7 @@ func _physics_process(delta):
 		currentState.physicsUpdate(delta)
 	
 func onStateTransition(state, newStateName, val = null):
-	if state != currentState:
+	if state != currentState || not get_tree():
 		return
 		
 	var newState = states.get(newStateName.to_upper())

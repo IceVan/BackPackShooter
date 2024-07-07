@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0mnvvno2hygv"]
+
+[ext_resource type="Script" path="res://Core/System/LocationManager.gd" id="1_8ls0x"]
+[ext_resource type="PackedScene" uid="uid://duuwenhfjr3ic" path="res://TestScene.tscn" id="2_1wau4"]
+[ext_resource type="PackedScene" uid="uid://d13anydf1lknb" path="res://Core/Entities/Collectibles/Soul.tscn" id="2_jamec"]
+
+[node name="LocationManager" type="Node2D"]
+script = ExtResource("1_8ls0x")
+soulScene = ExtResource("2_jamec")
+locationToLoad = ExtResource("2_1wau4")

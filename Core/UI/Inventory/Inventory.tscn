@@ -1,0 +1,129 @@
+[gd_scene load_steps=4 format=3 uid="uid://d34ui55lox4oy"]
+
+[ext_resource type="Script" path="res://Core/UI/Inventory/Inventory.gd" id="1_0oap6"]
+[ext_resource type="PackedScene" uid="uid://dafuxqewi1fbd" path="res://Core/UI/Inventory/InventoryGridRow.tscn" id="2_sq6qj"]
+[ext_resource type="PackedScene" uid="uid://ho4ledma4lmv" path="res://Core/UI/Inventory/InventorySoulLootCell.tscn" id="3_da6qr"]
+
+[node name="Inventory" type="Control"]
+layout_mode = 3
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0oap6")
+gridSize = Vector2i(14, 7)
+
+[node name="SoulDropContainer" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.4
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SoulDropContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SoulLoot" parent="SoulDropContainer/VBoxContainer" instance=ExtResource("2_sq6qj")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="SoulLootCell" parent="SoulDropContainer/VBoxContainer/SoulLoot" instance=ExtResource("3_da6qr")]
+layout_mode = 2
+
+[node name="SoulLootCell2" parent="SoulDropContainer/VBoxContainer/SoulLoot" instance=ExtResource("3_da6qr")]
+layout_mode = 2
+
+[node name="SoulLootCell3" parent="SoulDropContainer/VBoxContainer/SoulLoot" instance=ExtResource("3_da6qr")]
+layout_mode = 2
+
+[node name="SoulLootCell4" parent="SoulDropContainer/VBoxContainer/SoulLoot" instance=ExtResource("3_da6qr")]
+layout_mode = 2
+
+[node name="SoulLootCell5" parent="SoulDropContainer/VBoxContainer/SoulLoot" instance=ExtResource("3_da6qr")]
+layout_mode = 2
+
+[node name="SoulLootCell6" parent="SoulDropContainer/VBoxContainer/SoulLoot" instance=ExtResource("3_da6qr")]
+layout_mode = 2
+
+[node name="SoulTexture" type="TextureRect" parent="SoulDropContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="ReadyButton" type="Button" parent="SoulDropContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Ready"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.4
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.235294, 0.286275, 0.376471, 1)
+
+[node name="GridOuterContainer" type="Control" parent="ColorRect"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 360)
+layout_mode = 1
+anchor_right = 0.7
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InventoryGridContainer" type="VBoxContainer" parent="ColorRect/GridOuterContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Stats" type="Control" parent="ColorRect"]
+layout_mode = 1
+anchor_left = 0.7
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+
+[node name="StatsPanel" type="Panel" parent="ColorRect/Stats"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/Stats/StatsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect/Stats/StatsPanel/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="SoulDropContainer/VBoxContainer/ReadyButton" to="." method="_on_ready_button_pressed"]
