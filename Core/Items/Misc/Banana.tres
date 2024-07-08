@@ -11,8 +11,8 @@ stats = {
 }
 }
 bonusStats = {}
-gridPositions = Array[Vector2]([Vector2(0, 0), Vector2(1, 0), Vector2(1, 1)])
+gridPositions = Array[Vector2]([Vector2(0, 0), Vector2(0, 1), Vector2(-1, 1)])
 gridLocation = Vector2(1, 1)
-rotationDegrees = 270.0
+rotationDegrees = 0.0
 tags = Array[int]([])
 imgPath = "res://Art/banana.png"

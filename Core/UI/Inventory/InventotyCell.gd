@@ -19,7 +19,7 @@ func setColor(aState = States.DEFAULT) -> void:
 		States.DEFAULT:
 			filter.color = Color(Color.WHITE, 0.0)
 		States.TAKEN:
-			filter.color = Color(Color.RED, 0.2)
+			filter.color = Color(Color.SADDLE_BROWN, 0.2)
 		States.FREE:
 			filter.color = Color(Color.GREEN, 0.2)
 

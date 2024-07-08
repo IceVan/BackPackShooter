@@ -1,25 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://kyi6p8t43q7h"]
-
-[sub_resource type="GDScript" id="GDScript_5k6rm"]
-script/source = "xtends Node2D
-class_name InventoryItem
+extends Control
+class_name InventoryItemV2
 
 @export var itemResource : Item
-@export var gridCell : InventoryCell
-@export var previousGridCell : InventoryCell
+@export var gridCell : InventoryCellV2
+@export var previousGridCell : InventoryCellV2
 @export var gridPositions : Array[Vector2] = []
-@export var affectedBy : Array[InventoryItem] = []
+@export var affectedBy : Array[InventoryItemV2] = []
 
 @export var textureRect : TextureRect
 
+var gridPositionOffset
 var itemId : int
 var selected : bool = false
 
-	
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-	
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if selected:
@@ -29,17 +23,23 @@ func loadItem(aitemResource : Item):
 	textureRect.texture = load(aitemResource.imgPath)
 	itemResource = aitemResource
 	gridPositions = aitemResource.gridPositions.duplicate(true)
+	gridPositionOffset = Vector2(0,0)
+	for pos in gridPositions:
+		#save offset (leftmost corner of item outline rect)
+		if pos.x < gridPositionOffset.x : gridPositionOffset.x = pos.x
+		if pos.y < gridPositionOffset.y : gridPositionOffset.y = pos.y
 	rotation_degrees = aitemResource.rotationDegrees
 
 #TODO save rotation
 func rotateItem():
 	for i in gridPositions.size():
 		gridPositions[i] = Vector2(-gridPositions[i].y, gridPositions[i].x)
+	gridPositionOffset = Vector2(-gridPositionOffset.y, gridPositionOffset.x)
 	rotation_degrees += 90
 	if rotation_degrees>=360:
 		rotation_degrees = 0
 
-func snapToCell(cell : InventoryCell, gridSize : Vector2i):
+func snapToCell(cell : InventoryCellV2, gridSize : Vector2i):
 	var _position = Vector2(cell.cellID % gridSize.x, cell.cellID / gridSize.x) * cell.size if cell.cellID else cell.position
 	#cell.get_rect().position
 	if int(rotation_degrees) % 180 == 0 :
@@ -51,16 +51,3 @@ func snapToCell(cell : InventoryCell, gridSize : Vector2i):
 	position = _position
 	
 	selected = false
-"
-
-[node name="InventoryItem" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-script = SubResource("GDScript_5k6rm")
-gridPositions = null
-
-[node name="TextureRect" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0

@@ -2,7 +2,7 @@ extends CanvasLayer
 class_name UI
 
 @onready var hud : CanvasLayer = %Hud
-@onready var inventory : Inventory = %Inventory
+@onready var inventory : InventoryV2 = %Inventory2
 @onready var mainMenu : MainMenu = %MainMenu
 
 @onready var healthBar : ProgressBar = %Hud.healthBar

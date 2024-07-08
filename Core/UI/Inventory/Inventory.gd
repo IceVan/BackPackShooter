@@ -344,8 +344,8 @@ func _on_ready_button_pressed():
 
 
 func _on_visibility_changed():
-	print_debug("inventory: ", position, " g: ", global_position)
-	print_debug("rect: ", get_node("ColorRect").position, " g: ", get_node("ColorRect").global_position)
-	print_debug("outerContainer: ", %GridOuterContainer.position, " g: ", %GridOuterContainer.global_position)
-	print_debug("gridContainer: ", %InventoryGridContainer.position, " g: ", %InventoryGridContainer.global_position)
+	#print_debug("inventory: ", position, " g: ", global_position)
+	#print_debug("rect: ", get_node("ColorRect").position, " g: ", get_node("ColorRect").global_position)
+	#print_debug("outerContainer: ", %GridOuterContainer.position, " g: ", %GridOuterContainer.global_position)
+	#print_debug("gridContainer: ", %InventoryGridContainer.position, " g: ", %InventoryGridContainer.global_position)
 	updateItemsPreviousPositions()

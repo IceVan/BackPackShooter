@@ -27,6 +27,7 @@ func loadItem(aitemResource : Item):
 	itemResource = aitemResource
 	gridPositions = aitemResource.gridPositions.duplicate(true)
 	rotation_degrees = aitemResource.rotationDegrees
+	itemId = get_instance_id()
 
 #TODO save rotation
 func rotateItem():
