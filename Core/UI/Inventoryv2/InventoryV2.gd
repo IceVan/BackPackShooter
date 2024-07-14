@@ -18,12 +18,16 @@ signal lootClosed
 @onready var soulTexture = %SoulTexture
 @onready var soulDropContainer = %SoulDropContainer
 @onready var soulLoot = %SoulLoot
+@onready var discardCell = %DiscardCell
+@onready var lootCell = %LootCell
 
 var columnCount
 
 var gridArray = []
 var dragData : ItemDragData = null
 var currentSlot = null
+var currentPreviewSlot = null
+var canDropDrag = false
 var iconAnchor : Vector2
 var inventoryReady = false
 
@@ -31,6 +35,7 @@ var maximumItemsFromLootAvailable = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#dropPanel.get_local_mouse_position()
 	soulDropContainer.visible = false
 	assert(gridSize)
 	columnCount = gridSize.x
@@ -80,30 +85,73 @@ func initializeItems(items : Array[Item]):
 		var inventoryItem = inventoryItemScene.instantiate()
 		var placementLocation = gridArray[item.gridLocation.x + item.gridLocation.y*columnCount]
 		inventoryItem.loadItem(item)
+		inventoryItem.isLoot = false
 		addItemToCell(placementLocation, inventoryItem)
 	#emit_signal("inventory_changed", getItems())
 
+func getItems() -> Array[InventoryItemV2]:
+	var items = [] as Array[InventoryItemV2]
+	for row in inventoryGridContainer.get_children():
+		for cell in row.get_children():
+			if cell.get_child(1):
+				items.append(cell.get_child(1))
+	return items
+
+func showPrewiewInCell(cell : InventoryCellV2, dragData : ItemDragData):
+	cell.add_child(dragData.cellPreview)
+	dragData.cellPreview.position = dragData.gridOffset * CELL_SIZE_PX
+	if !canDropDrag:
+		dragData.cellPreview.set_modulate(Color(0.7,0.0,0.0,0.4))
+	else:
+		dragData.cellPreview.set_modulate(Color(1.0,1.0,1.0,0.4))
+
 func addItemToCell(cell : InventoryCellV2, item : InventoryItemV2, ):
-	item.gridCell = cell
-	cell.add_child(item)
-	for pos in item.gridPositions:
-		gridArray[cell.cellID + pos.x + pos.y * columnCount].itemRef = item
-		gridArray[cell.cellID + pos.x + pos.y * columnCount].state = InventoryCell.States.TAKEN
-		gridArray[cell.cellID + pos.x + pos.y * columnCount].updateColor()
-		
-	
-	print_debug("Grid offset: ", item.gridPositionOffset, " Position Offset: ", item.gridPositionOffset * CELL_SIZE_PX, " Position: ", item.position)
-	item.position = item.gridPositionOffset * CELL_SIZE_PX
+	if cell.isLoot:
+		item.gridCell = cell
+		cell.add_child(item)
+		item.position = Vector2(0,0)
+		if item.textureRect.size.x > 0 || item.textureRect.size.y >0:
+			var scale = CELL_SIZE_PX/maxf(item.textureRect.size.x, item.textureRect.size.y)
+			item.textureRect.scale *= scale
+	else:
+		item.textureRect.scale = Vector2(1,1)
+		item.gridCell = cell
+		cell.add_child(item)
+		for pos in item.gridPositions:
+			gridArray[cell.cellID + pos.x + pos.y * columnCount].itemRef = item
+			gridArray[cell.cellID + pos.x + pos.y * columnCount].state = InventoryCellV2.States.TAKEN
+			gridArray[cell.cellID + pos.x + pos.y * columnCount].updateColor()
+			
+		item.position = item.gridPositionOffset * CELL_SIZE_PX
 
 func moveItemToCell(cell : InventoryCellV2, item : InventoryItemV2):
 	var itemCell = item.gridCell
 	#itemCell.remove_child(item)
-	for pos in item.gridPositions:
-		gridArray[itemCell.cellID + pos.x + pos.y * columnCount].itemRef = null
+	#TODO sprawdzic czy nie jest to juz wykonywane w updateStatusForDrag
+	if itemCell.type == InventoryCellV2.Types.CELL:
+		for pos in item.gridPositions:
+			gridArray[itemCell.cellID + pos.x + pos.y * columnCount].itemRef = null
 	addItemToCell(cell, item)
 
+func moveItemToDiscard(at_position: Vector2, item : InventoryItemV2):
+	var itemCell = item.gridCell
+	if itemCell.type == InventoryCellV2.Types.CELL:
+		for pos in item.gridPositions:
+			gridArray[itemCell.cellID + pos.x + pos.y * columnCount].itemRef = null
+	item.gridCell = discardCell
+	discardCell.add_child(item)
+	item.position = at_position
+
+func moveItemToLoot(at_position: Vector2, item : InventoryItemV2):
+	var itemCell = item.gridCell
+	if itemCell.type == InventoryCellV2.Types.CELL:
+		for pos in item.gridPositions:
+			gridArray[itemCell.cellID + pos.x + pos.y * columnCount].itemRef = null
+	item.gridCell = lootCell
+	lootCell.add_child(item)
+	item.position = at_position
+
 func checkCellAvailability(aCell, data):
-	var canPlace = true
 	if aCell.isLoot:
 		return false if aCell.itemRef else true
 	for gridPosition in data.grid:
@@ -111,28 +159,34 @@ func checkCellAvailability(aCell, data):
 		var lineSwithCheck = aCell.cellID % columnCount + gridPosition[0]
 		#if exceeds left/right bounds
 		if lineSwithCheck < 0 or lineSwithCheck >= columnCount:
-			canPlace = false
+			return false
 		#if exceeds top/bottom bounds
 		if cellToCheck < 0 or cellToCheck >= gridArray.size():
-			canPlace = false
+			return false
 		#if cell taken
-		if gridArray[cellToCheck].itemRef:
-			canPlace = false
-	return canPlace
+		if gridArray[cellToCheck].itemRef && gridArray[cellToCheck].itemRef != data.item:
+			return false
+	return true
 
 func updateStatusForDrag(data : ItemDragData):
 	dragData = data
-	for gridPosition in data.item.gridPositions:
-		var cell = data.source.cellID + gridPosition[0] + gridPosition[1]*columnCount
-		gridArray[cell].itemRef = null
-		gridArray[cell].state = InventoryCell.States.DEFAULT
-		gridArray[cell].updateColor()
+	if data.item.gridCell.type == InventoryCellV2.Types.CELL:
+		for gridPosition in data.item.gridPositions:
+			var cell = data.source.cellID + gridPosition[0] + gridPosition[1]*columnCount
+			gridArray[cell].itemRef = null
+			gridArray[cell].state = InventoryCellV2.States.DEFAULT
+			gridArray[cell].updateColor()
 	data.item.get_parent().remove_child(data.item)
 
 func restoreStatusFromDragData():
-	for gridPosition in dragData.item.gridPositions:
-		var cell = dragData.source.cellID + gridPosition[0] + gridPosition[1]*columnCount
-		gridArray[cell].itemRef = dragData.item
+	if dragData.item.isLoot:
+		lootCell.add_child(dragData.item)
+		return
+	if dragData.source.type == InventoryCellV2.Types.CELL:
+		for gridPosition in dragData.item.gridPositions:
+			var cell = dragData.source.cellID + gridPosition[0] + gridPosition[1]*columnCount
+			gridArray[cell].itemRef = dragData.item
+	# if discard moveItemToDiscard(v(0,0), dragdata.item)
 	dragData.item.gridCell.add_child(dragData.item)
 
 #TODO save rotation
@@ -141,25 +195,69 @@ func rotateItem():
 		dragData.grid[i] = Vector2(-dragData.grid[i].y, dragData.grid[i].x)
 	dragData.gridOffset = Vector2(-dragData.gridOffset.y, dragData.gridOffset.x)
 	dragData.preview.rotation_degrees += 90
+	dragData.cellPreview.rotation_degrees += 90
 	if dragData.preview.rotation_degrees>=360:
 		dragData.preview.rotation_degrees = 0
+	if dragData.cellPreview.rotation_degrees>=360:
+		dragData.cellPreview.rotation_degrees = 0
+	
+	removeCellPreview()
+	showPrewiewInCell(currentPreviewSlot, dragData)
 
+func removeCellPreview():
+	if currentPreviewSlot:
+		var preview = currentPreviewSlot.get_node("InventoryItemPreview")
+		if preview:
+			currentPreviewSlot.remove_child(preview)
+
+func finishProcessingInventory():
+	for row in inventoryGridContainer.get_children():
+		for cell in row.get_children():
+			if cell.itemRef:
+				cell.itemRef.isLoot = false
+
+func clearDiscard():
+	for item in discardCell.get_children():
+		if item is InventoryItemV2:
+			item.queue_free()
+			
+func clearLoot():
+	for item in lootCell.get_children():
+		if item is InventoryItemV2:
+			item.queue_free()
 
 func _notification(what):
 	if what == Node.NOTIFICATION_DRAG_END:
 		if !get_viewport().gui_is_drag_successful():
 			restoreStatusFromDragData()
-			dragData = null
+		dragData = null
+		removeCellPreview()
+		currentPreviewSlot = null
+		inventory_changed.emit(getItems())
 
 func _on_cell_mouse_entered(aCell):
 	currentSlot = aCell
-	#if itemHeld:
-		#checkCellAvailability(aCell)
-		#updateGridColors(aCell)
-		
+	if dragData:
+		removeCellPreview()
+		currentPreviewSlot = aCell
+		canDropDrag = checkCellAvailability(aCell, dragData)
+		showPrewiewInCell(aCell, dragData)
+	print(aCell.cellID, " entered, drag ", true if (dragData) else false)
+	
 func _on_cell_mouse_exited(aCell):
 	pass
-	#clearGrid()
 
-func _on_soul_loot_ready():
-	pass
+func _on_soul_loot_ready(items : Array[Item]):
+	for item in items:
+		var inventoryItem = inventoryItemScene.instantiate()
+		inventoryItem.loadItem(item)
+		inventoryItem.isLoot = true
+		inventoryItem.gridCell = lootCell
+		lootCell.add_child(inventoryItem)
+		inventoryItem.position = VectorUtilsGlobal.getRandomPointInsideControl(soulLoot, inventoryItem.size.x, inventoryItem.size.y)
+
+func _on_ready_button_pressed():
+	finishProcessingInventory()
+	clearDiscard()
+	clearLoot()
+	lootClosed.emit()

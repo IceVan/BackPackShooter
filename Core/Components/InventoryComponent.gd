@@ -2,7 +2,7 @@ extends Node
 class_name InventoryComponent
 
 #TODO to change where INV is and how to access it
-@export var inventoryUI : Inventory
+@export var inventoryUI : InventoryV2
 @export var items : Array[Item] = []
 
 func _init():

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://chbcxu5bltkch"]
+
+[node name="InventoryItemPreview" type="Control"]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+pivot_offset = Vector2(32, 32)
+mouse_filter = 1
+
+[node name="Texture" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+stretch_mode = 4

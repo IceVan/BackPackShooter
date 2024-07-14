@@ -12,6 +12,7 @@ class_name InventoryItemV2
 var gridPositionOffset
 var itemId : int
 var selected : bool = false
+var isLoot = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,14 +31,6 @@ func loadItem(aitemResource : Item):
 		if pos.y < gridPositionOffset.y : gridPositionOffset.y = pos.y
 	rotation_degrees = aitemResource.rotationDegrees
 
-#TODO save rotation
-func rotateItem():
-	for i in gridPositions.size():
-		gridPositions[i] = Vector2(-gridPositions[i].y, gridPositions[i].x)
-	gridPositionOffset = Vector2(-gridPositionOffset.y, gridPositionOffset.x)
-	rotation_degrees += 90
-	if rotation_degrees>=360:
-		rotation_degrees = 0
 
 func snapToCell(cell : InventoryCellV2, gridSize : Vector2i):
 	var _position = Vector2(cell.cellID % gridSize.x, cell.cellID / gridSize.x) * cell.size if cell.cellID else cell.position
@@ -51,3 +44,33 @@ func snapToCell(cell : InventoryCellV2, gridSize : Vector2i):
 	position = _position
 	
 	selected = false
+
+func _get_drag_data(at_position):
+	var item = self
+	if item == null: return null
+
+	var dragData = ItemDragData.new(gridCell, item)
+	set_drag_preview(dragData.preview)
+	gridCell.inventoryNode.updateStatusForDrag(dragData)
+	return dragData
+
+#force_drag(data, preview)
+#func _can_drop_data(at_position, data):
+	#var t = gridCell.inventoryNode.checkCellAvailability(gridCell.inventoryNode.currentSlot, data)
+	#print_debug(t)
+	#return t
+	#
+	##match type:
+		##Types.CELL:
+			##return inventoryNode.checkCellAvailability(self, data)
+		##Types.DISCARD:
+			##return true
+		##Types.LOOT:
+			##return false
+#
+#func _drop_data(at_position, data):
+	#data.item.gridPositions = data.grid
+	#data.item.rotation_degrees = data.preview.rotation_degrees
+	#data.item.gridPositionOffset = data.gridOffset
+	#gridCell.inventoryNode.moveItemToCell(gridCell.inventoryNode.currentSlot, data.item)
+	#data.preview = null
