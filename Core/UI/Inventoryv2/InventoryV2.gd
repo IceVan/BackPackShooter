@@ -87,7 +87,7 @@ func initializeItems(items : Array[Item]):
 		inventoryItem.loadItem(item)
 		inventoryItem.isLoot = false
 		addItemToCell(placementLocation, inventoryItem)
-	#emit_signal("inventory_changed", getItems())
+	emit_signal("inventory_changed", getItems())
 
 func getItems() -> Array[InventoryItemV2]:
 	var items = [] as Array[InventoryItemV2]
@@ -95,6 +95,17 @@ func getItems() -> Array[InventoryItemV2]:
 		for cell in row.get_children():
 			if cell.get_child(1):
 				items.append(cell.get_child(1))
+	
+	for item : InventoryItemV2 in items:
+		var synergyResults = {}
+		for synergy : Synergy in item.synergies:
+			var affectedItems : Array[InventoryItemV2] = []
+			for cell : InventoryCellV2 in synergy.getFields(item, self):
+				if !affectedItems.has(cell.itemRef):
+					affectedItems.append(cell.itemRef)
+					var stats := synergy.getStats(item, cell.itemRef, self)
+					item.synergyResults[cell.itemRef] = stats
+					cell.itemRef.statsFromSynergies = GUtils.addToStats(cell.itemRef.statsFromSynergies, stats)
 	return items
 
 func showPrewiewInCell(cell : InventoryCellV2, dragData : ItemDragData):
@@ -242,7 +253,6 @@ func _on_cell_mouse_entered(aCell):
 		currentPreviewSlot = aCell
 		canDropDrag = checkCellAvailability(aCell, dragData)
 		showPrewiewInCell(aCell, dragData)
-	print(aCell.cellID, " entered, drag ", true if (dragData) else false)
 	
 func _on_cell_mouse_exited(aCell):
 	pass

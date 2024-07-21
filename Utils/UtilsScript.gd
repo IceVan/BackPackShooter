@@ -12,21 +12,27 @@ static func multiplyDmgStats(stats : Dictionary, factor : float) -> Dictionary :
 	return stats
 
 static func addToStats(base : Dictionary, stats : Dictionary) -> Dictionary :
+	var result = base.duplicate(true)
+	
 	for stat in stats.keys():
-		if base.has(stat):
-			if base[stat] is Dictionary:
-				base[stat] = addToStats(base[stat], stats[stat])
+		if result.has(stat):
+			if result[stat] is Dictionary and stats[stat] is Dictionary: ##base[stat] is Dictionary:
+				result[stat] = addToStats(result[stat], stats[stat])
+			elif stats[stat] is Array and stats[stat] is Array: ##base[stat] is Array:
+				result[stat].append(stats[stat])
 			else:
-				base[stat] += stats[stat]
+				result[stat] += stats[stat]
+		else:
+			result[stat] = stats[stat]
+	return result
 	
-	base.merge(stats)
-	
-	return base
-	
+
 static func addToAttackStats(base : Dictionary, stats : Dictionary) -> Dictionary :
+	var result = {"ATTACK" = base.get("ATTACK", {})}
+		
 	if stats && stats.has("ATTACK"):
-		addToStats(getOrCreateInDictionaryCategory(base, "ATTACK").get("ATTACK", {}), stats.get("ATTACK", {}))
-	return base
+		result["ATTACK"] = addToStats(result["ATTACK"], stats.get("ATTACK", {}))
+	return result
 
 static func getOrCreateInDictionaryCategory(dic : Dictionary, key : Variant):
 	if dic.has(key):

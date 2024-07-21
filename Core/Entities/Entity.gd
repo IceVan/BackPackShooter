@@ -3,6 +3,8 @@ class_name Entity
 
 var uuid
 
+signal statsUpdated
+
 @export var baseStats : Dictionary = {}
 var stats : Dictionary = {}
 
@@ -61,8 +63,9 @@ func getItems() -> Array[Item]:
 
 func updateStats():
 	stats = baseStats.duplicate(true)
-	if(inventoryComponent): GUtils.addToStats(stats, inventoryComponent.getStatsFromItems())
+	if(inventoryComponent): stats = GUtils.addToStats(stats, inventoryComponent.getStats())
 	if(controllComponent): controllComponent.speed = GUtils.getNmericProperty(stats, "STATS", "SPEED", 100)
+	if(healthComponent): healthComponent.changeMaxHealth(GUtils.getNmericProperty(stats, "STATS", "MAX_HP", healthComponent.maxHealth))
 
 func _on_health_component_died():
 	if not isPlayer():

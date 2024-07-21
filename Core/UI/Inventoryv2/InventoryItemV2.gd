@@ -5,7 +5,9 @@ class_name InventoryItemV2
 @export var gridCell : InventoryCellV2
 @export var previousGridCell : InventoryCellV2
 @export var gridPositions : Array[Vector2] = []
-@export var affectedBy : Array[InventoryItemV2] = []
+var synergies : Array[Synergy] = []
+var synergyResults : Dictionary = {}
+var statsFromSynergies : Dictionary = {}
 
 @export var textureRect : TextureRect
 

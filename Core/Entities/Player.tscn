@@ -49,6 +49,8 @@ items = Array[Resource("res://Core/Items/ItemResource.gd")]([ExtResource("7_6vox
 
 [node name="CollectibleMagnesComponent" type="Node" parent="." node_paths=PackedStringArray("parentEntity")]
 script = ExtResource("9_gwmld")
+range_ = 300.0
+magnesStrength = 20.0
 parentEntity = NodePath("..")
 
 [node name="Camera2D" type="Camera2D" parent="."]
