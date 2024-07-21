@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgrdl3ttwpj32"]
+
+[ext_resource type="Texture2D" uid="uid://bb8nmis2npfws" path="res://Art/cell.png" id="1_qy0tx"]
+[ext_resource type="Script" path="res://Core/UI/Inventoryv2/InventoryCellV2.gd" id="2_nuhn6"]
+
+[node name="InventoryCell" type="TextureRect"]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_qy0tx")
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("2_nuhn6")
+
+[node name="StatusFilter" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.482353)

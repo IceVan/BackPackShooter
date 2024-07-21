@@ -10,3 +10,10 @@ static func getGlobalDirectionToMouse(canvas : CanvasItem, node : Node = canvas)
 static func getRandomInsideCircle(size : float = 1.0) -> Vector2:
 	var theta : float = randf() * 2 * PI
 	return Vector2(cos(theta), sin(theta)) * sqrt(randf()) * size
+
+static func getRandomPointInsideControl(control : Control, offsetSizeX = 0, offsetSizeY = 0) -> Vector2:
+	#TODO fix getting size since it returns wrong data, its not yet initialized, after first lvlup values are ok
+	#print_debug("X: ", control.size.x, " Y: ", control.size.y, " R: ", control.size)
+	if(offsetSizeX > control.size.x || offsetSizeY > control.size.y):
+		return Vector2.ZERO
+	return Vector2(randf_range(0, control.size.x - offsetSizeX), randf_range(0, control.size.y - offsetSizeY))

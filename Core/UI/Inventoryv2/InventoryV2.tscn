@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://d34ui55lox4oy"]
+[gd_scene load_steps=4 format=3 uid="uid://blfnefbxfml6b"]
 
-[ext_resource type="Script" path="res://Core/UI/Inventory/Inventory.gd" id="1_0oap6"]
-[ext_resource type="PackedScene" uid="uid://dafuxqewi1fbd" path="res://Core/UI/Inventory/InventoryGridRow.tscn" id="2_sq6qj"]
-[ext_resource type="PackedScene" uid="uid://ho4ledma4lmv" path="res://Core/UI/Inventory/InventorySoulLootCell.tscn" id="3_da6qr"]
+[ext_resource type="Script" path="res://Core/UI/Inventoryv2/InventoryV2.gd" id="1_0f0vu"]
+[ext_resource type="PackedScene" uid="uid://xjybjygnqbt2" path="res://Core/UI/Inventoryv2/InventoryGridRowV2.tscn" id="2_5ama5"]
+[ext_resource type="PackedScene" uid="uid://c1ok20suk867x" path="res://Core/UI/Inventoryv2/InventoryLootCellV2.tscn" id="3_0qllt"]
 
 [node name="Inventory" type="Control"]
 layout_mode = 3
@@ -12,8 +12,7 @@ anchor_right = 0.95
 anchor_bottom = 0.95
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_0oap6")
-gridSize = Vector2i(14, 7)
+script = ExtResource("1_0f0vu")
 
 [node name="SoulDropContainer" type="Control" parent="."]
 unique_name_in_owner = true
@@ -31,29 +30,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SoulLoot" parent="SoulDropContainer/VBoxContainer" instance=ExtResource("2_sq6qj")]
+[node name="SoulLoot" parent="SoulDropContainer/VBoxContainer" instance=ExtResource("2_5ama5")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 16
 
-[node name="SoulLootCell" parent="SoulDropContainer/VBoxContainer/SoulLoot" instance=ExtResource("3_da6qr")]
+[node name="LootCell" parent="SoulDropContainer/VBoxContainer/SoulLoot" node_paths=PackedStringArray("inventoryNode") instance=ExtResource("3_0qllt")]
+unique_name_in_owner = true
 layout_mode = 2
-
-[node name="SoulLootCell2" parent="SoulDropContainer/VBoxContainer/SoulLoot" instance=ExtResource("3_da6qr")]
-layout_mode = 2
-
-[node name="SoulLootCell3" parent="SoulDropContainer/VBoxContainer/SoulLoot" instance=ExtResource("3_da6qr")]
-layout_mode = 2
-
-[node name="SoulLootCell4" parent="SoulDropContainer/VBoxContainer/SoulLoot" instance=ExtResource("3_da6qr")]
-layout_mode = 2
-
-[node name="SoulLootCell5" parent="SoulDropContainer/VBoxContainer/SoulLoot" instance=ExtResource("3_da6qr")]
-layout_mode = 2
-
-[node name="SoulLootCell6" parent="SoulDropContainer/VBoxContainer/SoulLoot" instance=ExtResource("3_da6qr")]
-layout_mode = 2
+size_flags_horizontal = 3
+isLoot = true
+inventoryNode = NodePath("../../../..")
+type = 2
 
 [node name="SoulTexture" type="TextureRect" parent="SoulDropContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -76,11 +63,43 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.235294, 0.286275, 0.376471, 1)
 
+[node name="Drop" type="Control" parent="ColorRect"]
+layout_mode = 1
+anchor_right = 0.15
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+
+[node name="DropPanel" type="Panel" parent="ColorRect/Drop"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/Drop/DropPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DiscardCell" parent="ColorRect/Drop/DropPanel/VBoxContainer" node_paths=PackedStringArray("inventoryNode") instance=ExtResource("3_0qllt")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+inventoryNode = NodePath("../../../../..")
+type = 1
+
 [node name="GridOuterContainer" type="Control" parent="ColorRect"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 360)
 layout_mode = 1
-anchor_right = 0.7
+anchor_left = 0.15
+anchor_right = 0.85
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -98,7 +117,7 @@ alignment = 1
 
 [node name="Stats" type="Control" parent="ColorRect"]
 layout_mode = 1
-anchor_left = 0.7
+anchor_left = 0.85
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3

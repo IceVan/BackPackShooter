@@ -32,9 +32,7 @@ func prepareAttack(source : Entity, itemStats : Dictionary = {}) -> AttackResour
 	attack.source = source
 	attack.tags = tags
 	attack.stats = \
-		GUtils.addToAttackStats(\
-			{"ATTACK" = source.stats.get("ATTACK",{}).duplicate(true)},\
-			itemStats if !itemStats.is_empty() else associatedItem.stats)
+		GUtils.addToAttackStats(source.stats, itemStats if !itemStats.is_empty() else associatedItem.stats)
 	attack.stats = modifyAttack(attack.stats)
 	attack.stats = GUtils.addToStats(attack.stats, stats)
 	return attack

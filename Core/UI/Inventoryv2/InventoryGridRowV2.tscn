@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dafuxqewi1fbd"]
+[gd_scene format=3 uid="uid://xjybjygnqbt2"]
 
 [node name="InventoryGridRow" type="HBoxContainer"]
 theme_override_constants/separation = 0
